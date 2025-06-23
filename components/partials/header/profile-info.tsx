@@ -99,7 +99,7 @@ const ProfileInfo = async () => {
               </Link>
             ))}
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
+          {/* <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <Link href="/dashboard" className="cursor-pointer">
               <DropdownMenuItem className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize px-3 py-1.5 cursor-pointer">
@@ -172,7 +172,7 @@ const ProfileInfo = async () => {
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
-          </DropdownMenuGroup>
+          </DropdownMenuGroup> */}
           <DropdownMenuSeparator className="mb-0 dark:bg-background" />
           <DropdownMenuItem
 
