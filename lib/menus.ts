@@ -113,7 +113,7 @@ export function getMenuList(pathname: string, t: any): Group[] {
         {
           id: "proviling-member",
           href: "/transactional/proviling-member",
-          label: "Proviling Member",
+          label: "User Profiling",
           active: pathname.includes("/transactional/proviling-member"),
           icon: "heroicons-outline:users", // Proviling Member icon
           submenus: [],
