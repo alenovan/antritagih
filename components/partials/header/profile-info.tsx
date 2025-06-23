@@ -71,21 +71,21 @@ const ProfileInfo = async () => {
                 icon: "heroicons:user",
                 href: "/user-profile"
               },
-              {
-                name: "Billing",
-                icon: "heroicons:megaphone",
-                href: "/dashboard"
-              },
-              {
-                name: "Settings",
-                icon: "heroicons:paper-airplane",
-                href: "/dashboard"
-              },
-              {
-                name: "Keyboard shortcuts",
-                icon: "heroicons:language",
-                href: "/dashboard"
-              },
+              // {
+              //   name: "Billing",
+              //   icon: "heroicons:megaphone",
+              //   href: "/dashboard"
+              // },
+              // {
+              //   name: "Settings",
+              //   icon: "heroicons:paper-airplane",
+              //   href: "/dashboard"
+              // },
+              // {
+              //   name: "Keyboard shortcuts",
+              //   icon: "heroicons:language",
+              //   href: "/dashboard"
+              // },
             ].map((item, index) => (
               <Link
                 href={item.href}
