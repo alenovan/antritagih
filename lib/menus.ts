@@ -53,7 +53,7 @@ export function getMenuList(pathname: string, t: any): Group[] {
           href: "/master/debitur",
           label: "Debitur",
           active: pathname.includes("/master/debitur"),
-          icon: "heroicons-outline:currency-dollar", // Debitur icon
+          icon: "heroicons-outline:user-group", // Debitur icon
           submenus: [],
         },
         {
@@ -61,7 +61,7 @@ export function getMenuList(pathname: string, t: any): Group[] {
           href: "/master/price-channel",
           label: "Price Channel",
           active: pathname.includes("/master/price-channel"),
-          icon: "heroicons-outline:switch-horizontal", // Price Channel icon
+          icon: "heroicons-outline:currency-dollar", // Price Channel icon
           submenus: [],
         },
         {
@@ -115,7 +115,7 @@ export function getMenuList(pathname: string, t: any): Group[] {
           href: "/transactional/proviling-member",
           label: "User Profiling",
           active: pathname.includes("/transactional/proviling-member"),
-          icon: "heroicons-outline:users", // Proviling Member icon
+          icon: "heroicons-outline:search", // Proviling Member icon
           submenus: [],
         },
         {
