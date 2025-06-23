@@ -16,11 +16,11 @@ const DashCodeFooter = async () => {
                 <div className="md:ltr:text-right md:rtl:text-end text-center text-sm">
                     Hand-crafted & Made by{" "}
                     <a
-                        href="https://codeshaper.net"
+                        href="https://antriaku.com"
                         target="_blank"
                         className="text-primary font-semibold"
                     >
-                        Codeshaper
+                        AntriaTech
                     </a>
                 </div>
             </div>
