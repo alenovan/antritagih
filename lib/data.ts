@@ -2,7 +2,7 @@
 const users = [
   {
     name: "AntriTagih",
-    email: "dashcode@codeshaper.net",
+    email: "antriatech@gmail.com",
     password: "password",
     image: "/images/users/user-1.jpg",
     token: "asd",

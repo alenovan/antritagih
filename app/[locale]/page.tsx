@@ -15,7 +15,7 @@ const Login = ({ params: { locale } }: { params: { locale: string } }) => {
           >
             <div className="max-w-[520px] pt-20 ps-20 ">
               <Link href="/" className="mb-6 inline-block">
-                <Logo />
+                {/* <Logo /> */}
               </Link>
               <h4>
                 AntriaTagih
