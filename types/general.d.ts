@@ -1,4 +1,9 @@
-type GeneralAPIResponse<T> = {
+type GeneralAPIResponse = {
+  message: string;
+  status: boolean;
+};
+
+type GeneralAPIFetchResponse<T> = {
   message: string;
   status: boolean;
   data: T;
