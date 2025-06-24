@@ -1,17 +1,17 @@
-import { Card, CardContent } from "@/components/ui/card";
-import SiteBreadcrumb from "@/components/ui/site/site-breadcrumb";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import ProfilingForm from "@/components/views/transaction/proviling";
+import { auth } from "@/lib/auth";
 
-const ReactTablePage = () => {
+export default async function DebiturPage() {
   return (
-    <div>
-      <SiteBreadcrumb />
-      <div className="space-y-6">
-        <Card>
-          <CardContent className="p-0"></CardContent>
-        </Card>
-      </div>
-    </div>
+    <Suspense fallback={<Skeleton className="h-full w-full" />}>
+      <ProvilingData />
+    </Suspense>
   );
-};
+}
 
-export default ReactTablePage;
+async function ProvilingData() {
+  const session = await auth();
+  return <ProfilingForm session={session ?? undefined} />;
+}

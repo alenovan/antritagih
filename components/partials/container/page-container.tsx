@@ -7,10 +7,12 @@ export default function PageContainer({
   children,
   title,
   onCreate,
+  search = true,
 }: {
   children: React.ReactNode;
   title: string;
   onCreate?: () => void;
+  search?: boolean;
 }) {
   return (
     <div>
@@ -29,7 +31,9 @@ export default function PageContainer({
                   </Button>
                 )}
 
-                <Input placeholder="Searh Data..." className="max-w-sm " />
+                {search && (
+                  <Input placeholder="Searh Data..." className="max-w-sm " />
+                )}
               </div>
             </div>
 
