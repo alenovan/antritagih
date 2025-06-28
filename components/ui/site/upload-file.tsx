@@ -50,8 +50,20 @@ const UploadFile = ({ onFileSelected }: UploadFileProps) => {
 
   return (
     <div className="w-full">
+      <div {...getRootProps({ className: "dropzone" })}>
+        <input {...getInputProps()} />
+        <div className="w-full text-center border-dashed border border-default-200 dark:border-default-300 rounded-md py-[52px] flex items-center flex-col">
+          <CloudUpload className="text-default-300 w-10 h-10" />
+          <h4 className="text-2xl font-medium mb-1 mt-3 text-card-foreground/80">
+            Drop files here or click to upload.
+          </h4>
+          <div className="text-xs text-muted-foreground">
+            (Find your file on your device to upload it)
+          </div>
+        </div>
+      </div>
       {files.length ? (
-        <div className="grid grid-cols-4 gap-3 mb-4">
+        <div className="grid grid-cols-4 gap-3 mt-4">
           {files.map((file) => (
             <div className="w-full h-full relative" key={file.name}>
               <Button
@@ -70,19 +82,6 @@ const UploadFile = ({ onFileSelected }: UploadFileProps) => {
       ) : (
         <div className="mb-4" />
       )}
-
-      <div {...getRootProps({ className: "dropzone" })}>
-        <input {...getInputProps()} />
-        <div className="w-full text-center border-dashed border border-default-200 dark:border-default-300 rounded-md py-[52px] flex items-center flex-col">
-          <CloudUpload className="text-default-300 w-10 h-10" />
-          <h4 className="text-2xl font-medium mb-1 mt-3 text-card-foreground/80">
-            Drop files here or click to upload.
-          </h4>
-          <div className="text-xs text-muted-foreground">
-            (Find your file on your device to upload it)
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
