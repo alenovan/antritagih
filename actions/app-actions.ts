@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { postMessage } from "@/app/[locale]/(protected)/app/chat/utils";
 
 export const postMessageAction = async (id: string, message: string) => {
   const response = await postMessage(id, message);
