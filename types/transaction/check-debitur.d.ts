@@ -1,0 +1,43 @@
+type CheckDebitur = {
+  identiy_number: string;
+  name: string;
+  mobile_phone: string;
+  email: string;
+  address: string;
+  province: string;
+  gender: string;
+  mariage_status: string;
+  spouse_name: string;
+  profession: string;
+  emergency_contact: string;
+  emergency_phone1: string;
+  emergency_phone2: string;
+  company_name: string;
+  clients: Debitur[];
+};
+
+type ClientDebitur = {
+  client_id: 1;
+  account_number: "ACC123456";
+  identiy_number: "ID9876543210";
+  product_type: "Kredit Motor";
+  fee: 250000.0;
+  asset_desc: "Motor Yamaha NMAX 155cc";
+  asset_category: "Kendaraan Bermotor";
+  license_plate: "B1234XYZ";
+  color: "Hitam";
+  manufacturing_year: 2021;
+  next_installment_number: 5;
+  last_paid_date: "2025-05-15";
+  last_paid_due_date: "2025-05-10";
+  due_date: "2025-06-15";
+  zone: "Jakarta Selatan";
+  tenur: 24;
+  branch_location: "Cabang Fatmawati";
+  installment_amount: 950000.0;
+  total_debt: 22800000.0;
+  remaining_debt: 13300000.0;
+  status: 1;
+  call_status: "PTP";
+  client: Client;
+};

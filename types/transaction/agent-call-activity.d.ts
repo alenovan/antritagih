@@ -1,0 +1,26 @@
+type AgentCallActivity = {
+  id: number;
+  created_at: Date;
+  updated_at: Date;
+  client_id: number;
+  session_id: string;
+  client_name: string;
+  account_number: string;
+  virtual_account: string;
+  customer_name: string;
+  jumlah_tagihan: number;
+  phone_number: string;
+  call_reason: string;
+  call_situation: string;
+  call_status: string;
+  tgl_aksi: Date;
+  flags: string;
+  agent: string;
+  call_type: string;
+  duration_call: string;
+  comment: string;
+  remark: string;
+  account_status: string;
+  channel: string;
+  channel_cost: number;
+};
