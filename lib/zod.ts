@@ -70,8 +70,13 @@ export const rolePermissionSchema = z.object({
   permission_id: z.number().min(1, "Permission is required"),
 });
 
-export const provilingSchema = z.object({
-  identityNumber: z.string().trim().min(1, "Indentity number is required"),
+export const checkDebiturSchema = z.object({
+  identity_number: z.string().trim().min(1, "Indentity number is required"),
+});
+
+export const uploadSchema = z.object({
+  month: z.string().trim().min(1, "Month is required"),
+  // filename: z.array(),
 });
 
 export type ClientType = z.infer<typeof clientSchema>;
@@ -80,4 +85,5 @@ export type PriceChannelType = z.infer<typeof priceChannelSchema>;
 export type UserType = z.infer<typeof userSchema>;
 export type RoleType = z.infer<typeof roleSchema>;
 export type RolePermissionType = z.infer<typeof rolePermissionSchema>;
-export type ProvilingType = z.infer<typeof provilingSchema>;
+export type CheckDebiturType = z.infer<typeof checkDebiturSchema>;
+export type UploadType = z.infer<typeof uploadSchema>;

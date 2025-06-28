@@ -1,20 +1,23 @@
-import { Card, CardContent } from "@/components/ui/card";
-import SiteBreadcrumb from "@/components/ui/site/site-breadcrumb";
-import AgentCallActivity from "./table";
+import { auth } from "@/lib/auth";
+import { getAgentCallActivitys } from "@/services/transaction/agent-call-activity";
+import AgentCallActivityView from "@/components/views/transaction/agent-call-activity";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const ReactTablePage = () => {
+export default async function AgentCallActivityPage() {
   return (
-    <div>
-      <SiteBreadcrumb />
-      <div className="space-y-6">
-        <Card>
-          <CardContent className="p-0">
-            <AgentCallActivity />
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+    <Suspense fallback={<Skeleton className="h-full w-full" />}>
+      <AgentCallActivityData />
+    </Suspense>
   );
-};
+}
 
-export default ReactTablePage;
+async function AgentCallActivityData() {
+  const session = await auth();
+
+  const [agentCallActivitys] = await Promise.all([
+    getAgentCallActivitys({ token: session?.user?.id as string }),
+  ]);
+
+  return <AgentCallActivityView agentCallActivitys={agentCallActivitys.data} />;
+}

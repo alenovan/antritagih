@@ -6,13 +6,15 @@ import SiteBreadcrumb from "@/components/ui/site/site-breadcrumb";
 export default function PageContainer({
   children,
   title,
-  onCreate,
   search = true,
+  custom,
+  onCreate,
 }: {
   children: React.ReactNode;
   title: string;
-  onCreate?: () => void;
   search?: boolean;
+  custom?: React.ReactNode;
+  onCreate?: () => void;
 }) {
   return (
     <div>
@@ -25,6 +27,8 @@ export default function PageContainer({
                 {title}
               </div>
               <div className="flex items-center space-x-4">
+                {custom}
+
                 {onCreate && (
                   <Button onClick={onCreate} size="sm">
                     Create

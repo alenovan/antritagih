@@ -1,95 +1,11 @@
-// To Do
-// import {
-//   createUploadAction,
-//   updateUploadAction,
-// } from "@/actions/user-management/upload";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-// To Do
-// import { uploadSchema } from "@/lib/zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { toast } from "sonner";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Icon } from "@/components/ui/icon";
+import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import UploadFile from "@/components/ui/site/upload-file";
 
-interface UploadFormProps {
-  onClose: () => void;
-  initialData?: {
-    id?: number;
-    type: string;
-  } | null;
-  mode: "create" | "update";
-}
-
-export default function UploadForm({
-  onClose,
-  initialData,
-  mode,
-}: UploadFormProps) {
-  const [isPending, setIsPending] = useState<boolean>(false);
-
-  // To Do
-  // const form = useForm<z.infer<typeof uploadSchema>>({
-  //   resolver: zodResolver(uploadSchema),
-  //   defaultValues: {
-  //     name: initialData?.name || "",
-  //   },
-  // });
-
-  // To Do
-  // const onSubmit = async (data: z.infer<typeof uploadSchema>) => {
-  //   setIsPending(true);
-  //   const res =
-  //     mode === "create"
-  //       ? await createUploadAction(data)
-  //       : await updateUploadAction(initialData?.id as number, data);
-
-  //   if (res.success) {
-  //     toast.success(res.message);
-  //     onClose();
-  //   } else {
-  //     toast.error(res.message);
-  //   }
-  //   setIsPending(false);
-  // };
-
+export default function Download() {
   return (
-    // To Do
-    // <Form {...form}>
-    <form
-      autoComplete="off"
-      // To Do
-      // onSubmit={form.handleSubmit(onSubmit)}
-      className="flex w-full flex-col gap-y-5"
-    >
-      {/* To Do
-      <FormField
-        control={form.control}
-        name="name"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Name</FormLabel>
-            <FormControl>
-              <Input placeholder="Enter Name" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      /> */}
+    <div className="flex w-full flex-col gap-y-5">
       <RadioGroup className="grid grid-cols-3 gap-2">
         <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-default has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950">
           <RadioGroupItem
@@ -102,9 +18,7 @@ export default function UploadForm({
               icon={"heroicons-outline:user-group"}
               className="w-10 h-10 m-auto"
             />
-            <p className="text-sm font-medium text-center">
-              Debitur
-            </p>
+            <p className="text-sm font-medium text-center">Debitur</p>
           </div>
         </Label>
         <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-default has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950">
@@ -134,22 +48,13 @@ export default function UploadForm({
               icon={"heroicons-outline:document-text"}
               className="w-10 h-10 m-auto"
             />
-            <p className="text-sm font-medium text-center">
-              Rekap Payment
-            </p>
+            <p className="text-sm font-medium text-center">Rekap Payment</p>
           </div>
         </Label>
       </RadioGroup>
-
-      <UploadFile />
-
       <div className="flex justify-end gap-x-2 items-center">
-        <Button disabled={isPending} type="submit">
-          Submit
-        </Button>
+        <Button>Download</Button>
       </div>
-    </form>
-    // To Do
-    // </Form>
+    </div>
   );
 }

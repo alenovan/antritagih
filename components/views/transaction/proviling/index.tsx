@@ -1,4 +1,5 @@
 "use client";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -7,9 +8,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { provilingSchema } from "@/lib/zod";
-import { toast } from "sonner";
-import { getCheckDebiturs } from "@/services/master/proviling";
+import { checkDebiturSchema } from "@/lib/zod";
 import {
   Form,
   FormControl,
@@ -17,29 +16,42 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { auth } from "@/lib/auth";
-import { useRouter } from "next/navigation";
-import { Session } from "next-auth";
-export default function ProfilingForm({ session }: { session?: Session }) {
-  const [isPending, setIsPending] = useState<boolean>(false);
+import { DataTable } from "@/components/ui/data-table/data-table";
+import { generateColumns } from "./column";
+import { generateColumns as generateColumnsDetail } from "./column-detail";
+import { useAuthorization } from "@/hooks/use-authorization";
+import ActionDialog from "@/components/ui/site/action-dialog";
+import { useRouter, useSearchParams } from "next/navigation";
+
+export default function CheckDebiturView({
+  checkDebiturs,
+}: {
+  checkDebiturs: CheckDebitur[];
+}) {
+  const { hasPermission } = useAuthorization();
   const router = useRouter();
-  const form = useForm<z.infer<typeof provilingSchema>>({
-    resolver: zodResolver(provilingSchema),
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(
+    searchParams ? searchParams.toString() : ""
+  );
+
+  const [isPending, setIsPending] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [initialData, setInitialData] = useState<CheckDebitur | null>(null);
+
+  const form = useForm<z.infer<typeof checkDebiturSchema>>({
+    resolver: zodResolver(checkDebiturSchema),
   });
-  const onSubmit = async (data: z.infer<typeof provilingSchema>) => {
+
+  const onSubmit = async (data: z.infer<typeof checkDebiturSchema>) => {
     setIsPending(true);
-    const res = await getCheckDebiturs({
-      token: session?.user?.id as string,
-      identityNumber: data.identityNumber,
-    });
-    if (res.status) {
-      toast.success(res.message);
-      router.push(`proviling-member/${data?.identityNumber ?? ""}`);
-    } else {
-      toast.error(res.message);
-    }
+
+    params.set("identity_number", data.identity_number);
+    router.push(`?${params}`);
+
     setIsPending(false);
   };
+
   return (
     <PageContainer title="Profiling Member" search={false}>
       <div>
@@ -47,12 +59,13 @@ export default function ProfilingForm({ session }: { session?: Session }) {
           <form autoComplete="off" onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid grid-cols-2 gap-4 px-10 py-5">
               <div className="col-span-2 flex flex-col gap-2 lg:flex-row lg:items-center">
-                <Label htmlFor="identityNumber" className="lg:min-w-[160px]">
+                <Label htmlFor="identity_number" className="lg:min-w-[160px]">
                   Identity Number
                 </Label>
                 <FormField
                   control={form.control}
-                  name="identityNumber"
+                  name="identity_number"
+                  defaultValue={searchParams?.get("identity_number") || ""}
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormControl>
@@ -76,6 +89,36 @@ export default function ProfilingForm({ session }: { session?: Session }) {
           </form>
         </Form>
       </div>
+
+      {params.size > 0 && (
+        <DataTable
+          columns={generateColumns({
+            hasPermission,
+            onViewClick: (rowData) => {
+              setInitialData(rowData);
+              setIsOpen(true);
+            },
+          })}
+          data={checkDebiturs}
+        />
+      )}
+
+      <ActionDialog
+        clearFn={() => setInitialData(null)}
+        title={"Detail Profilling Number"}
+        description={"Detail a Profilling Number in the system"}
+        className="md:max-w-2xl"
+        form={
+          <div className="overflow-x-auto">
+            <DataTable
+              columns={generateColumnsDetail()}
+              data={initialData?.clients || []}
+            />
+          </div>
+        }
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
     </PageContainer>
   );
 }

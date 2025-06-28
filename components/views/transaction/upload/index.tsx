@@ -12,19 +12,30 @@ import { useState } from "react";
 import UploadForm from "@/components/form/transaction/upload";
 import ActionDialog from "@/components/ui/site/action-dialog";
 import PageContainer from "@/components/partials/container/page-container";
+import { Button } from "@/components/ui/button";
+import Download from "@/components/form/transaction/upload/download";
 
 export default function UploadView({ uploads }: { uploads: Upload[] }) {
   const { hasPermission } = useAuthorization();
   const { confirm } = useConfirmationDialog();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenTemplate, setIsOpenTemplate] = useState(false);
   const [initialData, setInitialData] = useState<{
     id?: number;
     type: string;
   } | null>(null);
 
   return (
-    <PageContainer title="Upload" onCreate={() => setIsOpen(true)}>
+    <PageContainer
+      title="Upload"
+      onCreate={() => setIsOpen(true)}
+      custom={
+        <Button size="sm" onClick={() => setIsOpenTemplate(true)}>
+          Download Template
+        </Button>
+      }
+    >
       <DataTable
         columns={generateColumns({
           hasPermission,
@@ -56,21 +67,27 @@ export default function UploadView({ uploads }: { uploads: Upload[] }) {
 
       <ActionDialog
         clearFn={() => setInitialData(null)}
-        title={initialData ? "Update Upload" : "Upload File"}
-        description={
-          initialData
-            ? "Update a upload to the system"
-            : "Create new upload to the system"
-        }
+        title={"Upload File"}
+        description={"Upload a file to the system"}
+        className="md:max-w-xl"
         form={
           <UploadForm
             initialData={initialData}
-            mode={initialData ? "update" : "create"}
+            mode={"create"}
             onClose={() => setIsOpen(false)}
           />
         }
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+      />
+
+      <ActionDialog
+        title={"Download Template"}
+        description={"Download the template to upload the file"}
+        isOpen={isOpenTemplate}
+        setIsOpen={setIsOpenTemplate}
+        className="md:max-w-xl"
+        form={<Download />}
       />
     </PageContainer>
   );

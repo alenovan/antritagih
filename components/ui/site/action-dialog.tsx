@@ -34,7 +34,7 @@ export default function ActionDialog({
   return (
     <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className={cn("max-w-[460px]", className)}>
+        <DialogContent className={cn("md:max-w-[460px]", className)}>
           <DialogHeader
             className={cn("hidden", (title || description) && "block")}
           >

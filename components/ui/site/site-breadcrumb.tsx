@@ -20,7 +20,7 @@ const SiteBreadcrumb = ({ children }: { children?: ReactNode }) => {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <Link href="/dashboard/analytics">
+              <Link href="/dashboard">
                 <Icon icon="heroicons:home" className=" h-5 w-5" />
               </Link>
             </BreadcrumbItem>

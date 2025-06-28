@@ -54,7 +54,7 @@ const LoginForm = () => {
             description: "Sunday, December 03, 2023 at 9:00 AM",
           });
         } else {
-          router.push("/dashboard/analytics");
+          router.push("/dashboard");
           toast.success("Successfully logged in");
         }
       } catch (err: any) {

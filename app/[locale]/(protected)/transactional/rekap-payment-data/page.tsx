@@ -1,20 +1,23 @@
-import { Card, CardContent } from "@/components/ui/card";
-import SiteBreadcrumb from "@/components/ui/site/site-breadcrumb";
-import PaymentHistory from "./table";
+import { auth } from "@/lib/auth";
+import { getPaymentHistorys } from "@/services/transaction/payment-history";
+import PaymentHistoryView from "@/components/views/transaction/payment-history";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const ReactTablePage = () => {
+export default async function PaymentHistoryPage() {
   return (
-    <div>
-      <SiteBreadcrumb />
-      <div className="space-y-6">
-        <Card>
-          <CardContent className="p-0">
-            <PaymentHistory />
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+    <Suspense fallback={<Skeleton className="h-full w-full" />}>
+      <PaymentHistoryData />
+    </Suspense>
   );
-};
+}
 
-export default ReactTablePage;
+async function PaymentHistoryData() {
+  const session = await auth();
+
+  const [paymentHistorys] = await Promise.all([
+    getPaymentHistorys({ token: session?.user?.id as string }),
+  ]);
+
+  return <PaymentHistoryView paymentHistorys={paymentHistorys.data} />;
+}
