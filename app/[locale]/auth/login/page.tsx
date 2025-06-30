@@ -13,9 +13,9 @@ const Login = ({ params: { locale } }: { params: { locale: string } }) => {
           <div className="lg:block hidden flex-1 overflow-hidden text-[40px] leading-[48px] text-default-600 relative z-1 bg-default-50">
             <div className="max-w-[520px] pt-20 ps-20 ">
               <h4>
-                Unlock your Project
+                AntriaTagih
                 <span className="text-default-800 font-bold ms-2">
-                  performance
+                  Easily Manage Debtor Information
                 </span>
               </h4>
             </div>
