@@ -29,10 +29,7 @@ export function DataTablePagination<TData>({
 }: DataTablePaginationProps<TData>) {
   return (
     <div
-      className={cn(
-        "flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8",
-        className
-      )}
+      className={cn("flex items-center justify-end py-4 px-10", className)}
       {...props}
     >
       <div className="text-muted-foreground flex-1 text-sm whitespace-nowrap">

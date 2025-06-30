@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+export const authSchema = z.object({
+  email: z.string().email({ message: "Your email is invalid." }),
+  password: z.string().min(4),
+});
+
 export const clientSchema = z.object({
   name: z.string().trim().min(1, "Name is required"),
 });
@@ -87,3 +92,4 @@ export type RoleType = z.infer<typeof roleSchema>;
 export type RolePermissionType = z.infer<typeof rolePermissionSchema>;
 export type CheckDebiturType = z.infer<typeof checkDebiturSchema>;
 export type UploadType = z.infer<typeof uploadSchema>;
+export type AuthType = z.infer<typeof authSchema>;

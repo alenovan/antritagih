@@ -12,7 +12,7 @@ import { format } from "date-fns";
 export default function PaymentHistoryView({
   paymentHistorys,
 }: {
-  paymentHistorys: PaymentHistory[];
+  paymentHistorys: GeneralAPIFetchResponse<PaymentHistory[]>;
 }) {
   const { hasPermission } = useAuthorization();
 
@@ -29,7 +29,8 @@ export default function PaymentHistoryView({
             setIsOpen(true);
           },
         })}
-        data={paymentHistorys}
+        data={paymentHistorys.data}
+        meta={paymentHistorys.meta}
       />
 
       <ActionDialog
@@ -51,33 +52,45 @@ export default function PaymentHistoryView({
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Debitur Name</td>
-                  <td className="p-2">{initialData?.debitur_name}</td>
+                  <td className="p-2">{initialData?.debtor_name}</td>
                 </tr>
                 <tr>
-                  <td className="p-2 font-semibold">Nominal</td>
-                  <td className="p-2">${initialData?.nominal.toFixed(2)}</td>
-                </tr>
-                <tr>
-                  <td className="p-2 font-semibold">Due Date</td>
+                  <td className="p-2 font-semibold">Date</td>
                   <td className="p-2">
-                    {initialData?.due_date
-                      ? format(new Date(initialData?.due_date || ""), "PPP")
+                    {initialData?.date_v1
+                      ? format(new Date(initialData?.date_v1 || ""), "PPP")
                       : "-"}
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-2 font-semibold">Payment Status</td>
-                  <td className="p-2">{initialData?.data_status}</td>
+                  <td className="p-2 font-semibold">Date 2</td>
+                  <td className="p-2">
+                    {initialData?.date_v2
+                      ? format(new Date(initialData?.date_v2 || ""), "PPP")
+                      : "-"}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-2 font-semibold">Nominal</td>
+                  <td className="p-2">{initialData?.nominal_v1.toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <td className="p-2 font-semibold">Nominal 2</td>
+                  <td className="p-2">{initialData?.nominal_v2.toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <td className="p-2 font-semibold">Fee Amount</td>
+                  <td className="p-2">{initialData?.fee_amount.toFixed(2)}</td>
                 </tr>
 
                 {/* Additional Information in Table */}
                 <tr>
                   <td className="p-2 font-semibold">Agent Name</td>
-                  <td className="p-2">{initialData?.agent_name}</td>
+                  <td className="p-2">{initialData?.agent}</td>
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Discount Percent</td>
-                  <td className="p-2">{initialData?.discount_percent}%</td>
+                  <td className="p-2">{initialData?.disc}%</td>
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Description</td>
@@ -85,7 +98,7 @@ export default function PaymentHistoryView({
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Note</td>
-                  <td className="p-2">{initialData?.note}</td>
+                  <td className="p-2">{initialData?.updated_note}</td>
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Created At</td>

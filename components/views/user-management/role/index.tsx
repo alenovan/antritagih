@@ -12,7 +12,11 @@ import RoleForm from "@/components/form/user-management/role";
 import ActionDialog from "@/components/ui/site/action-dialog";
 import PageContainer from "@/components/partials/container/page-container";
 
-export default function RoleView({ roles }: { roles: Role[] }) {
+export default function RoleView({
+  roles,
+}: {
+  roles: GeneralAPIFetchResponse<Role[]>;
+}) {
   const { hasPermission } = useAuthorization();
   const { confirm } = useConfirmationDialog();
 
@@ -52,7 +56,8 @@ export default function RoleView({ roles }: { roles: Role[] }) {
             setIsOpen(true);
           },
         })}
-        data={roles}
+        data={roles.data}
+        meta={roles.meta}
       />
 
       <ActionDialog

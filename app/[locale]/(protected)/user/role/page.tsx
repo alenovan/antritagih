@@ -16,8 +16,8 @@ async function RoleData() {
   const session = await auth();
 
   const [roles] = await Promise.all([
-    getRoles({ token: session?.user?.id as string }),
+    getRoles({ token: session?.user?.token as string }),
   ]);
 
-  return <RoleView roles={roles.data} />;
+  return <RoleView roles={roles} />;
 }

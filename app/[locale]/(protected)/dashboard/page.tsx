@@ -22,10 +22,10 @@ async function DashboardData() {
 
   const [gmvReports, nettRevenueReports, channelCosts, channelEffectiveness] =
     await Promise.all([
-      getGMVReports({ token: session?.user?.id as string }),
-      getNettRevenueReports({ token: session?.user?.id as string }),
-      getChannelCosts({ token: session?.user?.id as string }),
-      getChannelEffectiveness({ token: session?.user?.id as string }),
+      getGMVReports({ token: session?.user?.token as string }),
+      getNettRevenueReports({ token: session?.user?.token as string }),
+      getChannelCosts({ token: session?.user?.token as string }),
+      getChannelEffectiveness({ token: session?.user?.token as string }),
     ]);
 
   return (

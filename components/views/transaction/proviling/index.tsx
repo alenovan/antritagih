@@ -26,7 +26,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 export default function CheckDebiturView({
   checkDebiturs,
 }: {
-  checkDebiturs: CheckDebitur[];
+  checkDebiturs: GeneralAPIFetchResponse<CheckDebitur[]>;
 }) {
   const { hasPermission } = useAuthorization();
   const router = useRouter();
@@ -99,7 +99,8 @@ export default function CheckDebiturView({
               setIsOpen(true);
             },
           })}
-          data={checkDebiturs}
+          data={checkDebiturs.data}
+          meta={checkDebiturs.meta}
         />
       )}
 

@@ -1,8 +1,7 @@
-import React from 'react'
-import { redirect } from 'next/navigation'
-const page = ({ params: { locale } }: { params: { locale: string } }) => {
-  redirect(`/${locale}/auth/login`)
-  return null
-}
+import { redirect } from "next/navigation";
 
-export default page
+const page = ({ params: { locale } }: { params: { locale: string } }) => {
+  redirect(`/${locale}/auth/login`);
+};
+
+export default page;

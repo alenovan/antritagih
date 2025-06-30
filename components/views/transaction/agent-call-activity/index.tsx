@@ -12,7 +12,7 @@ import { format } from "date-fns";
 export default function AgentCallActivityView({
   agentCallActivitys,
 }: {
-  agentCallActivitys: AgentCallActivity[];
+  agentCallActivitys: GeneralAPIFetchResponse<AgentCallActivity[]>;
 }) {
   const { hasPermission } = useAuthorization();
 
@@ -31,7 +31,8 @@ export default function AgentCallActivityView({
             setIsOpen(true);
           },
         })}
-        data={agentCallActivitys}
+        data={agentCallActivitys.data}
+        meta={agentCallActivitys.meta}
       />
 
       <ActionDialog

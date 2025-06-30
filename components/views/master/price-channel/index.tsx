@@ -15,7 +15,7 @@ import PageContainer from "@/components/partials/container/page-container";
 export default function PriceChannelView({
   priceChannels,
 }: {
-  priceChannels: PriceChannel[];
+  priceChannels: GeneralAPIFetchResponse<PriceChannel[]>;
 }) {
   const { hasPermission } = useAuthorization();
   const { confirm } = useConfirmationDialog();
@@ -62,7 +62,8 @@ export default function PriceChannelView({
             setIsOpen(true);
           },
         })}
-        data={priceChannels}
+        data={priceChannels.data}
+        meta={priceChannels.meta}
       />
 
       <ActionDialog

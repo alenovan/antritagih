@@ -10,7 +10,11 @@ import DebiturForm from "@/components/form/master/debitur";
 import ActionDialog from "@/components/ui/site/action-dialog";
 import PageContainer from "@/components/partials/container/page-container";
 
-export default function DebiturView({ debiturs }: { debiturs: Debitur[] }) {
+export default function DebiturView({
+  debiturs,
+}: {
+  debiturs: GeneralAPIFetchResponse<Debitur[]>;
+}) {
   const { hasPermission } = useAuthorization();
   const { confirm } = useConfirmationDialog();
 
@@ -27,7 +31,8 @@ export default function DebiturView({ debiturs }: { debiturs: Debitur[] }) {
             setIsOpen(true);
           },
         })}
-        data={debiturs}
+        data={debiturs.data}
+        meta={debiturs.meta}
       />
 
       <ActionDialog

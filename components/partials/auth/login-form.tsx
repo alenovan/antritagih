@@ -1,27 +1,27 @@
 "use client";
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "@/i18n/routing";
 import { Icon } from "@/components/ui/icon";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
-import { loginUser } from "@/actions/auth-action";
+import { loginAction } from "@/actions/auth";
 import { toast } from "sonner";
 import { useRouter } from "@/components/navigation";
+import { useSearchParams } from "next/navigation";
+import { authSchema } from "@/lib/zod";
 
-const schema = z.object({
-  email: z.string().email({ message: "Your email is invalid." }),
-  password: z.string().min(4),
-});
 const LoginForm = () => {
-  const [isPending, startTransition] = React.useTransition();
   const router = useRouter();
+  const query = useSearchParams();
+
+  const [isPending, startTransition] = React.useTransition();
   const [passwordType, setPasswordType] = React.useState("password");
 
   const togglePasswordType = () => {
@@ -31,28 +31,28 @@ const LoginForm = () => {
       setPasswordType("text");
     }
   };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(authSchema),
     mode: "all",
     defaultValues: {
-      email: "antriatech@gmail.com",
-      password: "password",
+      email: "",
+      password: "",
     },
   });
 
-  const onSubmit = (data: z.infer<typeof schema>) => {
+  const onSubmit = (data: z.infer<typeof authSchema>) => {
     startTransition(async () => {
       try {
-        const response = await loginUser(data);
+        const callbackUrl = query?.get("callbackUrl") || "/dashboard";
+        const response = await loginAction(data, callbackUrl);
 
         if (!!response.error) {
-          toast("Event has been created", {
-            description: "Sunday, December 03, 2023 at 9:00 AM",
-          });
+          toast.error(response.error);
         } else {
           router.push("/dashboard");
           toast.success("Successfully logged in");

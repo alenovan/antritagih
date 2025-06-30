@@ -12,7 +12,11 @@ import ClientForm from "@/components/form/master/client";
 import ActionDialog from "@/components/ui/site/action-dialog";
 import PageContainer from "@/components/partials/container/page-container";
 
-export default function ClientView({ clients }: { clients: Client[] }) {
+export default function ClientView({
+  clients,
+}: {
+  clients: GeneralAPIFetchResponse<Client[]>;
+}) {
   const { hasPermission } = useAuthorization();
   const { confirm } = useConfirmationDialog();
 
@@ -52,7 +56,8 @@ export default function ClientView({ clients }: { clients: Client[] }) {
             setIsOpen(true);
           },
         })}
-        data={clients}
+        data={clients.data}
+        meta={clients.meta}
       />
 
       <ActionDialog

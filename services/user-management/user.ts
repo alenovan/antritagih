@@ -41,6 +41,15 @@ export async function getUser({ token, id }: { token: string; id: number }) {
   });
 }
 
+export async function getUserProfile(token: string) {
+  return fetchAPI<GeneralAPIFetchResponse<User>>({
+    type: "server",
+    method: "GET",
+    endpoint: `/user-management/user/profile`,
+    token: token,
+  });
+}
+
 export async function createUser({
   token,
   body,

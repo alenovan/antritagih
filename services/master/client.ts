@@ -7,16 +7,6 @@ export async function getClients({
   token: string;
   query?: ApiParameter["queryParams"];
 }) {
-  return {
-    status: true,
-    message: "success",
-    data: [
-      {
-        id: 1,
-        name: "Client A",
-      },
-    ],
-  };
   return fetchAPI<GeneralAPIFetchResponse<Client[]>>({
     type: "server",
     method: "GET",

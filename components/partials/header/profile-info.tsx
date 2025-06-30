@@ -1,3 +1,4 @@
+"use client";
 
 import {
   DropdownMenu,
@@ -12,19 +13,26 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Icon } from "@/components/ui/icon"
+import { Icon } from "@/components/ui/icon";
 import { signOut, auth } from "@/lib/auth";
 import Image from "next/image";
-import { Link } from '@/i18n/routing';
+import { Link, usePathname } from "@/i18n/routing";
+import { logoutAction } from "@/actions/auth";
+import { Session } from "next-auth";
 
-const ProfileInfo = async () => {
-  const session = await auth();
+const ProfileInfo = ({ session }: { session: Session | null }) => {
+  const paths = usePathname();
+
+  const handleFormSubmit = async () => {
+    const callbackUrl = paths || "/dashboard";
+    return await logoutAction(callbackUrl);
+  };
+
   return (
     <div className="md:block hidden">
       <DropdownMenu>
         <DropdownMenuTrigger asChild className=" cursor-pointer">
           <div className=" flex items-center gap-3  text-default-800 ">
-
             <Image
               src={session?.user?.image as string}
               alt={session?.user?.name?.charAt(0) as string}
@@ -43,7 +51,6 @@ const ProfileInfo = async () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 p-0" align="end">
           <DropdownMenuLabel className="flex gap-2 items-center mb-1 p-3">
-
             <Image
               src={session?.user?.image as string}
               alt={session?.user?.name?.charAt(0) as string}
@@ -69,7 +76,7 @@ const ProfileInfo = async () => {
               {
                 name: "profile",
                 icon: "heroicons:user",
-                href: "/user-profile"
+                href: "/user-profile",
               },
               // {
               //   name: "Billing",
@@ -174,24 +181,14 @@ const ProfileInfo = async () => {
             </DropdownMenuSub>
           </DropdownMenuGroup> */}
           <DropdownMenuSeparator className="mb-0 dark:bg-background" />
-          <DropdownMenuItem
-
-            className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize my-1 px-3 cursor-pointer"
-          >
-
-            <div>
-              <form
-                action={async () => {
-                  "use server";
-                  await signOut();
-                }}
-              >
-                <button type="submit" className=" w-full  flex  items-center gap-2" >
-                  <Icon icon="heroicons:power" className="w-4 h-4" />
-                  Log out
-                </button>
-              </form>
-            </div>
+          <DropdownMenuItem className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize my-1 px-3">
+            <button
+              className=" w-full flex items-center gap-2 cursor-pointer"
+              onClick={handleFormSubmit}
+            >
+              <Icon icon="heroicons:power" className="w-4 h-4" />
+              Log out
+            </button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

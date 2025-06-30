@@ -1,3 +1,5 @@
+import { logoutAction } from "@/actions/auth";
+
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 export type ApiParameter = {

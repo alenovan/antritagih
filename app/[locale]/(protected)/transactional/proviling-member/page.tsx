@@ -7,7 +7,7 @@ import { getCheckDebiturs } from "@/services/transaction/check-debitur";
 export default async function CheckDebiturPage({
   searchParams,
 }: {
-  searchParams: Promise<{ [key: string]: string | number | boolean | undefined }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   return (
     <Suspense fallback={<Skeleton className="h-full w-full" />}>
@@ -19,24 +19,38 @@ export default async function CheckDebiturPage({
 async function CheckDebiturData({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | number | boolean | undefined };
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const session = await auth();
   const query = {
     ...searchParams,
+    page: parseInt((searchParams.page as string) || "1", 10),
+    per_page: parseInt((searchParams.per_page as string) || "10", 10),
   };
-  let checkDebiturs;
+  let checkDebiturs: GeneralAPIFetchResponse<CheckDebitur[]>;
 
   if (Object.keys(query).length > 0) {
     [checkDebiturs] = await Promise.all([
       getCheckDebiturs({
-        token: session?.user?.id as string,
-        query: query || undefined,
+        token: session?.user?.token as string,
+        query,
       }),
     ]);
   } else {
-    checkDebiturs = { data: [] };
+    checkDebiturs = {
+      data: [],
+      meta: {
+        total_records: 0,
+        last_page: 0,
+        per_page: 0,
+        page: 0,
+        next_page: 0,
+        prev_page: 0,
+      },
+      message: "",
+      status: false,
+    };
   }
 
-  return <CheckDebiturView checkDebiturs={checkDebiturs.data} />;
+  return <CheckDebiturView checkDebiturs={checkDebiturs} />;
 }

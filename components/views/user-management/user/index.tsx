@@ -16,7 +16,7 @@ export default function UserView({
   users,
   roles,
 }: {
-  users: User[];
+  users: GeneralAPIFetchResponse<User[]>;
   roles: Role[];
 }) {
   const { hasPermission } = useAuthorization();
@@ -66,7 +66,8 @@ export default function UserView({
             setIsOpen(true);
           },
         })}
-        data={users}
+        data={users.data}
+        meta={users.meta}
       />
 
       <ActionDialog

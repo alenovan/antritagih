@@ -7,28 +7,6 @@ export async function getPaymentHistorys({
   token: string;
   query?: ApiParameter["queryParams"];
 }) {
-  return {
-    status: true,
-    message: "success",
-    data: [
-      {
-        id: 1,
-        created_at: new Date("2025-06-01 00:00:00"),
-        updated_at: new Date("2025-06-01 00:00:00"),
-        client_id: 1,
-        client_name: "PT Sukses Bersama",
-        account_number: "ACC123456789",
-        debitur_name: "John Doe",
-        due_date: new Date("2025-06-14 15:30:00"),
-        nominal: 1200000.0,
-        agent_name: "Agent01",
-        keterangan: "FULL PAYMENT",
-        discount_percent: 5.0,
-        note: "Pembayaran lunas, diberikan diskon karena telat 30 hari.",
-        data_status: "new",
-      },
-    ],
-  };
   return fetchAPI<GeneralAPIFetchResponse<PaymentHistory[]>>({
     type: "server",
     method: "GET",
@@ -45,26 +23,6 @@ export async function getPaymentHistory({
   token: string;
   id: number;
 }) {
-  return {
-    status: true,
-    message: "success",
-    data: {
-      id: 1,
-      created_at: new Date("2025-06-01T00:00:00"),
-      updated_at: new Date("2025-06-01T00:00:00"),
-      client_id: 1,
-      client_name: "PT Sukses Bersama",
-      account_number: "ACC123456789",
-      debitur_name: "John Doe",
-      due_date: new Date("2025-06-15"),
-      nominal: 1200000.0,
-      agent_name: "Agent01",
-      keterangan: "FULL PAYMENT",
-      discount_percent: 5.0,
-      note: "Pembayaran lunas, diberikan diskon karena telat 30 hari.",
-      data_status: "new",
-    },
-  };
   return fetchAPI<GeneralAPIFetchResponse<PaymentHistory>>({
     type: "server",
     method: "GET",

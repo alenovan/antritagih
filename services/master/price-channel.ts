@@ -7,23 +7,10 @@ export async function getPriceChannels({
   token: string;
   query?: ApiParameter["queryParams"];
 }) {
-  return {
-    status: true,
-    message: "success",
-    data: [
-      {
-        id: 1,
-        channel: "Whatsapp",
-        fee: 300,
-        effective_start_date: new Date("2025-01-01 00:00:00"),
-        effective_end_date: new Date("2025-01-01 00:00:00"),
-      },
-    ],
-  };
   return fetchAPI<GeneralAPIFetchResponse<PriceChannel[]>>({
     type: "server",
     method: "GET",
-    endpoint: "/master/client",
+    endpoint: "/master/price-channel",
     token: token,
     queryParams: query,
   });
@@ -39,7 +26,7 @@ export async function getPriceChannel({
   return fetchAPI<GeneralAPIFetchResponse<PriceChannel>>({
     type: "server",
     method: "GET",
-    endpoint: `/master/client/${id}`,
+    endpoint: `/master/price-channel/${id}`,
     token: token,
   });
 }
@@ -54,7 +41,7 @@ export async function createPriceChannel({
   return fetchAPI<GeneralAPIResponse>({
     type: "server",
     method: "POST",
-    endpoint: `/master/client`,
+    endpoint: `/master/price-channel`,
     token: token,
     body: body,
   });
@@ -72,7 +59,7 @@ export async function updatePriceChannel({
   return fetchAPI<GeneralAPIResponse>({
     type: "server",
     method: "PUT",
-    endpoint: `/master/client/${id}`,
+    endpoint: `/master/price-channel/${id}`,
     token: token,
     body: body,
   });
@@ -88,7 +75,7 @@ export async function deletePriceChannel({
   return fetchAPI<GeneralAPIResponse>({
     type: "server",
     method: "DELETE",
-    endpoint: `/master/client/${id}`,
+    endpoint: `/master/price-channel/${id}`,
     token: token,
   });
 }

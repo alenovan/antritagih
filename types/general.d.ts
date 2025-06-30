@@ -7,13 +7,14 @@ type GeneralAPIFetchResponse<T> = {
   message: string;
   status: boolean;
   data: T;
+  meta?: Meta;
 };
 
 type Meta = {
-  RowsPerPage: number;
-  PreviousPage: number;
-  CurrentPage: number;
-  NextPage: number;
-  TotalPages: number;
-  TotalRecords: number;
+  per_page: number;
+  prev_page: number;
+  page: number;
+  next_page: number;
+  last_page: number;
+  total_records: number;
 };
