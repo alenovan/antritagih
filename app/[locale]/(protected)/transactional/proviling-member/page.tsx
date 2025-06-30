@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import CheckDebiturView from "@/components/views/transaction/proviling";
+import CheckDebiturView from "@/components/views/transaction/check-debitur";
 import { getCheckDebiturs } from "@/services/transaction/check-debitur";
 
 export default async function CheckDebiturPage({

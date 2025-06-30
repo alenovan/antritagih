@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
+import { Text } from "lucide-react";
 
 export const generateColumns = ({
   hasPermission,
@@ -19,7 +20,14 @@ export const generateColumns = ({
     {
       accessorKey: "name",
       header: "Name",
+      id: "name",
       cell: ({ row }) => <span>{row.getValue("name")}</span>,
+      meta: {
+        placeholder: "Search name",
+        variant: "text",
+        icon: Text,
+      },
+      enableColumnFilter: true,
     },
 
     {

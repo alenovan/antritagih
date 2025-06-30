@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { formatIDR } from "@/utils/currency";
+import { Text } from "lucide-react";
 
 export const generateColumns = ({
   hasPermission,
@@ -19,17 +20,38 @@ export const generateColumns = ({
     {
       accessorKey: "client_name",
       header: "Client Name",
+      id: "client_name",
       cell: ({ row }) => <span>{row.getValue("client_name")}</span>,
+      meta: {
+        placeholder: "Search client name",
+        variant: "text",
+        icon: Text,
+      },
+      enableColumnFilter: true,
     },
     {
       accessorKey: "account_number",
       header: "Account Number",
+      id: "account_number",
       cell: ({ row }) => <span>{row.getValue("account_number")}</span>,
+      meta: {
+        placeholder: "Search account number",
+        variant: "text",
+        icon: Text,
+      },
+      enableColumnFilter: true,
     },
     {
       accessorKey: "debtor_name",
       header: "Debitur Name",
+      id: "debtor_name",
       cell: ({ row }) => <span>{row.getValue("debtor_name")}</span>,
+      meta: {
+        placeholder: "Search debitur name",
+        variant: "text",
+        icon: Text,
+      },
+      enableColumnFilter: true,
     },
     {
       accessorKey: "date_v1",

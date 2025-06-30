@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { formatIDR } from "@/utils/currency";
+import { Text } from "lucide-react";
 
 export const generateColumns = ({
   hasPermission,
@@ -21,7 +22,14 @@ export const generateColumns = ({
     {
       accessorKey: "channel",
       header: "Channel",
+      id: "channel",
       cell: ({ row }) => <span>{row.getValue("channel")}</span>,
+      meta: {
+        placeholder: "Search channel",
+        variant: "text",
+        icon: Text,
+      },
+      enableColumnFilter: true,
     },
     {
       accessorKey: "fee",
