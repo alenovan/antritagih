@@ -209,7 +209,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         path: "/",
         domain:
           process.env.NODE_ENV === "production"
-            ? `.${process.env.ROOT_DOMAIN}`
+            ? `${process.env.ROOT_DOMAIN}`
             : "127.0.0.1",
       },
     },
