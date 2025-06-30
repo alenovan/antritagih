@@ -3,7 +3,7 @@
 import { auth } from "@/lib/auth";
 import { UploadType } from "@/lib/zod";
 import { uploadAgentCallActivity } from "@/services/transaction/agent-call-activity";
-import { revalidatePath } from "next/cache";
+import { revalidateLocalizedPath } from "@/utils/revalidate";
 
 export const uploadAgentCallActivityAction = async (data: UploadType) => {
   const session = await auth();
@@ -13,14 +13,14 @@ export const uploadAgentCallActivityAction = async (data: UploadType) => {
     body: data,
   });
 
-  if (!res.status) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/transactional/agent-call-activity");
+  revalidateLocalizedPath("/transactional/agent-call-activity");
 
   return {
     success: true,

@@ -1,5 +1,5 @@
 type CheckDebitur = {
-  identiy_number: string;
+  identity_number: string;
   name: string;
   mobile_phone: string;
   email: string;
@@ -19,7 +19,7 @@ type CheckDebitur = {
 type ClientDebitur = {
   client_id: 1;
   account_number: "ACC123456";
-  identiy_number: "ID9876543210";
+  identity_number: "ID9876543210";
   product_type: "Kredit Motor";
   fee: 250000.0;
   asset_desc: "Motor Yamaha NMAX 155cc";

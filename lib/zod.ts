@@ -14,7 +14,7 @@ export const debiturSchema = z.object({
   account_number: z.string().trim().min(1, "Account Number is required"),
   identiy_number: z.string().trim().min(1, "Identity Number is required"),
   product_type: z.string().trim().min(1, "Product Type is required"),
-  fee: z.number().min(1, "Fee is required"),
+  fee: z.coerce.number().min(1, "Fee is required"),
   name: z.string().trim().min(1, "Name is required"),
   mobile_phone: z.string().trim().min(1, "Mobile Phone is required"),
   email: z.string().trim().min(1, "Email is required"),
@@ -32,8 +32,8 @@ export const debiturSchema = z.object({
   asset_category: z.string().trim().min(1, "Asset Category is required"),
   license_plate: z.string().trim().min(1, "License Plate is required"),
   color: z.string().trim().min(1, "Color is required"),
-  manufacturing_year: z.number().min(1, "Manufacturing Year is required"),
-  next_installment_number: z
+  manufacturing_year: z.coerce.number().min(1, "Manufacturing Year is required"),
+  next_installment_number: z.coerce
     .number()
     .min(1, "Next Installment Number is required"),
   last_paid_date: z.string().trim().min(1, "Last Paid Date is required"),
@@ -43,18 +43,18 @@ export const debiturSchema = z.object({
     .min(1, "Last Paid Due Date is required"),
   due_date: z.string().trim().min(1, "Due Date is required"),
   zone: z.string().trim().min(1, "Zone is required"),
-  tenur: z.number().min(1, "Tenur is required"),
+  tenur: z.coerce.number().min(1, "Tenur is required"),
   branch_location: z.string().trim().min(1, "Branch Location is required"),
-  installment_amount: z.number().min(1, "Installment Amount is required"),
-  total_debt: z.number().min(1, "Total Debt is required"),
-  remaining_debt: z.number().min(1, "Remaining Debt is required"),
-  status: z.number().min(1, "Status is required"),
+  installment_amount: z.coerce.number().min(1, "Installment Amount is required"),
+  total_debt: z.coerce.number().min(1, "Total Debt is required"),
+  remaining_debt: z.coerce.number().min(1, "Remaining Debt is required"),
+  status: z.coerce.number().min(1, "Status is required"),
   call_status: z.string().trim().min(1, "Call Status is required"),
 });
 
 export const priceChannelSchema = z.object({
   channel: z.string().trim().min(1, "Channel is required"),
-  fee: z.number().min(1, "Fee is required"),
+  fee: z.coerce.number().min(1, "Fee is required"),
   effective_start_date: z.date(),
   effective_end_date: z.date(),
 });

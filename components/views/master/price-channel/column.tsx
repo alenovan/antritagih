@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
+import { formatIDR } from "@/utils/currency";
 
 export const generateColumns = ({
   hasPermission,
@@ -25,7 +26,7 @@ export const generateColumns = ({
     {
       accessorKey: "fee",
       header: "Fee",
-      cell: ({ row }) => <span>${row.getValue("fee")}</span>,
+      cell: ({ row }) => <span>{formatIDR(row.getValue("fee"))}</span>,
     },
     {
       accessorKey: "effective_start_date",

@@ -7,6 +7,7 @@ import {
   updatePriceChannel,
   deletePriceChannel,
 } from "@/services/master/price-channel";
+import { revalidateLocalizedPath } from "@/utils/revalidate";
 import { format } from "date-fns";
 import { revalidatePath } from "next/cache";
 
@@ -28,14 +29,14 @@ export const createPriceChannelAction = async (data: PriceChannelType) => {
     },
   });
 
-  if (!res.status) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/user");
+  revalidateLocalizedPath("/master/price-channel");
 
   return {
     success: true,
@@ -65,14 +66,14 @@ export const updatePriceChannelAction = async (
     },
   });
 
-  if (!res.status) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/user");
+  revalidateLocalizedPath("/master/price-channel");
 
   return {
     success: true,
@@ -88,14 +89,14 @@ export const deletePriceChannelAction = async (id: number) => {
     id,
   });
 
-  if (!res.success) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/user");
+  revalidateLocalizedPath("/master/price-channel");
 
   return {
     success: true,

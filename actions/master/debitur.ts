@@ -7,7 +7,7 @@ import {
   updateDebitur,
   deleteDebitur,
 } from "@/services/master/debitur";
-import { revalidatePath } from "next/cache";
+import { revalidateLocalizedPath } from "@/utils/revalidate";
 
 export const createDebiturAction = async (data: DebiturType) => {
   const session = await auth();
@@ -17,14 +17,14 @@ export const createDebiturAction = async (data: DebiturType) => {
     body: data,
   });
 
-  if (!res.status) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/user");
+  revalidateLocalizedPath("/master/debitur");
 
   return {
     success: true,
@@ -41,14 +41,14 @@ export const updateDebiturAction = async (id: number, data: DebiturType) => {
     body: data,
   });
 
-  if (!res.status) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/user");
+  revalidateLocalizedPath("/master/debitur");
 
   return {
     success: true,
@@ -64,14 +64,14 @@ export const deleteDebiturAction = async (id: number) => {
     id,
   });
 
-  if (!res.success) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/user");
+  revalidateLocalizedPath("/master/debitur");
 
   return {
     success: true,

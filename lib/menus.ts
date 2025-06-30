@@ -132,14 +132,6 @@ export function getMenuList(pathname: string, t: any): Group[] {
           icon: "heroicons-outline:key", // Role icon
           submenus: [],
         },
-        {
-          id: "permission",
-          href: "/user/permission",
-          label: "Permission",
-          active: pathname.includes("/user/permission"),
-          icon: "heroicons-outline:shield-check", // Permission icon
-          submenus: [],
-        },
       ],
     },
   ];
@@ -249,14 +241,6 @@ export function getHorizontalMenuList(pathname: string, t: any): Group[] {
           label: "Role",
           active: pathname.includes("/user/role"),
           icon: "heroicons-outline:key", // Role icon
-          submenus: [],
-        },
-        {
-          id: "permission",
-          href: "/user/permission",
-          label: "Permission",
-          active: pathname.includes("/user/permission"),
-          icon: "heroicons-outline:shield-check", // Permission icon
           submenus: [],
         },
       ],

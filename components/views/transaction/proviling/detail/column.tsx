@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
+import { formatIDR } from "@/utils/currency";
 
 export const generateColumns = ({
   hasPermission,
@@ -33,7 +34,7 @@ export const generateColumns = ({
     {
       accessorKey: "fee",
       header: "Fee",
-      cell: ({ row }) => <span>{row.getValue("fee")}</span>,
+      cell: ({ row }) => <span>{formatIDR(row.getValue("fee"))}</span>,
     },
     {
       accessorKey: "asset_desc",
@@ -107,17 +108,17 @@ export const generateColumns = ({
     {
       accessorKey: "installment_amount",
       header: "Installment Amount",
-      cell: ({ row }) => <span>{row.getValue("installment_amount")}</span>,
+      cell: ({ row }) => <span>{formatIDR(row.getValue("installment_amount"))}</span>,
     },
     {
       accessorKey: "total_debt",
       header: "Total Debt",
-      cell: ({ row }) => <span>{row.getValue("total_debt")}</span>,
+      cell: ({ row }) => <span>{formatIDR(row.getValue("total_debt"))}</span>,
     },
     {
       accessorKey: "remaining_debt",
       header: "Remaining Debt",
-      cell: ({ row }) => <span>{row.getValue("remaining_debt")}</span>,
+      cell: ({ row }) => <span>{formatIDR(row.getValue("remaining_debt"))}</span>,
     },
     {
       accessorKey: "status",

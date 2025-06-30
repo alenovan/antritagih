@@ -1,4 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
+import { formatIDR } from "@/utils/currency";
 
 export const generateColumns = () => {
   const columns: ColumnDef<Debitur>[] = [
@@ -6,6 +7,30 @@ export const generateColumns = () => {
       accessorKey: "client_id",
       header: "Client ID",
       cell: ({ row }) => <span>{row.getValue("client_id")}</span>,
+    },
+    {
+      accessorKey: "client_name",
+      header: "Client Name",
+      cell: ({ row }) => <span>{row.original.client?.name}</span>,
+    },
+    {
+      accessorKey: "installment_amount",
+      header: "Installment Amount",
+      cell: ({ row }) => (
+        <span>{formatIDR(row.getValue("installment_amount"))}</span>
+      ),
+    },
+    {
+      accessorKey: "total_debt",
+      header: "Total Debt",
+      cell: ({ row }) => <span>{formatIDR(row.getValue("total_debt"))}</span>,
+    },
+    {
+      accessorKey: "remaining_debt",
+      header: "Remaining Debt",
+      cell: ({ row }) => (
+        <span>{formatIDR(row.getValue("remaining_debt"))}</span>
+      ),
     },
     {
       accessorKey: "account_number",
@@ -25,7 +50,7 @@ export const generateColumns = () => {
     {
       accessorKey: "fee",
       header: "Fee",
-      cell: ({ row }) => <span>{row.getValue("fee")}</span>,
+      cell: ({ row }) => <span>{formatIDR(row.getValue("fee"))}</span>,
     },
     {
       accessorKey: "asset_desc",
@@ -95,21 +120,6 @@ export const generateColumns = () => {
       accessorKey: "branch_location",
       header: "Branch Location",
       cell: ({ row }) => <span>{row.getValue("branch_location")}</span>,
-    },
-    {
-      accessorKey: "installment_amount",
-      header: "Installment Amount",
-      cell: ({ row }) => <span>{row.getValue("installment_amount")}</span>,
-    },
-    {
-      accessorKey: "total_debt",
-      header: "Total Debt",
-      cell: ({ row }) => <span>{row.getValue("total_debt")}</span>,
-    },
-    {
-      accessorKey: "remaining_debt",
-      header: "Remaining Debt",
-      cell: ({ row }) => <span>{row.getValue("remaining_debt")}</span>,
     },
     {
       accessorKey: "status",

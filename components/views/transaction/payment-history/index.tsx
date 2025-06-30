@@ -8,6 +8,7 @@ import { useState } from "react";
 import ActionDialog from "@/components/ui/site/action-dialog";
 import PageContainer from "@/components/partials/container/page-container";
 import { format } from "date-fns";
+import { formatIDR } from "@/utils/currency";
 
 export default function PaymentHistoryView({
   paymentHistorys,
@@ -72,15 +73,15 @@ export default function PaymentHistoryView({
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Nominal</td>
-                  <td className="p-2">{initialData?.nominal_v1.toFixed(2)}</td>
+                  <td className="p-2">{formatIDR(initialData?.nominal_v1)}</td>
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Nominal 2</td>
-                  <td className="p-2">{initialData?.nominal_v2.toFixed(2)}</td>
+                  <td className="p-2">{formatIDR(initialData?.nominal_v2)}</td>
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Fee Amount</td>
-                  <td className="p-2">{initialData?.fee_amount.toFixed(2)}</td>
+                  <td className="p-2">{formatIDR(initialData?.fee_amount)}</td>
                 </tr>
 
                 {/* Additional Information in Table */}

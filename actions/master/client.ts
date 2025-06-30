@@ -7,7 +7,7 @@ import {
   updateClient,
   deleteClient,
 } from "@/services/master/client";
-import { revalidatePath } from "next/cache";
+import { revalidateLocalizedPath } from "@/utils/revalidate";
 
 export const createClientAction = async (data: ClientType) => {
   const session = await auth();
@@ -17,14 +17,14 @@ export const createClientAction = async (data: ClientType) => {
     body: data,
   });
 
-  if (!res.status) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/user");
+  revalidateLocalizedPath("/master/client");
 
   return {
     success: true,
@@ -41,14 +41,14 @@ export const updateClientAction = async (id: number, data: ClientType) => {
     body: data,
   });
 
-  if (!res.status) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/user");
+  revalidateLocalizedPath("/master/client");
 
   return {
     success: true,
@@ -64,14 +64,13 @@ export const deleteClientAction = async (id: number) => {
     id,
   });
 
-  if (!res.success) {
+  if (res.success === false) {
     return {
-      success: false,
+      success: res.success,
       message: res?.message,
     };
   }
-
-  revalidatePath("/dashboard/user-management/user");
+  revalidateLocalizedPath("/master/client");
 
   return {
     success: true,

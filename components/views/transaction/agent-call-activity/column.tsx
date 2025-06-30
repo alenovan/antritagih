@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
+import { formatIDR } from "@/utils/currency";
 
 export const generateColumns = ({
   hasPermission,
@@ -27,7 +28,7 @@ export const generateColumns = ({
     {
       accessorKey: "jumlah_tagihan",
       header: "Jumlah tagihan",
-      cell: ({ row }) => <span>{row.getValue("jumlah_tagihan")}</span>, // Format as currency
+      cell: ({ row }) => <span>{formatIDR(row.getValue("jumlah_tagihan"))}</span>,
     },
     {
       accessorKey: "phone_number",

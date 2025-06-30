@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
+import { formatIDR } from "@/utils/currency";
+import { Text } from "lucide-react";
 
 export const generateColumns = ({
   hasPermission,
@@ -21,9 +23,24 @@ export const generateColumns = ({
       cell: ({ row }) => <span>{row.getValue("name")}</span>,
     },
     {
-      accessorKey: "account_number",
+      accessorKey: "client_name",
+      header: "Client Name",
+      cell: ({ row }) => <span>{row.getValue("client_name")}</span>,
+      // meta: {
+      //   placeholder: "Search...",
+      //   variant: "text",
+      //   icon: Text,
+      // },
+    },
+    {
+      accessorKey: "identity_number",
       header: "Account Number",
-      cell: ({ row }) => <span>{row.getValue("account_number")}</span>,
+      cell: ({ row }) => <span>{row.original.account_number}</span>,
+      // meta: {
+      //   placeholder: "Search...",
+      //   variant: "text",
+      //   icon: Text,
+      // },
     },
     {
       accessorKey: "product_type",
@@ -33,12 +50,16 @@ export const generateColumns = ({
     {
       accessorKey: "installment_amount",
       header: "Installment Amount",
-      cell: ({ row }) => <span>{row.getValue("installment_amount")}</span>,
+      cell: ({ row }) => (
+        <span>{formatIDR(row.getValue("installment_amount"))}</span>
+      ),
     },
     {
       accessorKey: "remaining_debt",
       header: "Remaining Debt",
-      cell: ({ row }) => <span>{row.getValue("remaining_debt")}</span>,
+      cell: ({ row }) => (
+        <span>{formatIDR(row.getValue("remaining_debt"))}</span>
+      ),
     },
     {
       accessorKey: "due_date",

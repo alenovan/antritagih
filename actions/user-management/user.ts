@@ -7,7 +7,7 @@ import {
   updateUser,
   deleteUser,
 } from "@/services/user-management/user";
-import { revalidatePath } from "next/cache";
+import { revalidateLocalizedPath } from "@/utils/revalidate";
 
 export const createUserAction = async (data: UserType) => {
   const session = await auth();
@@ -17,14 +17,14 @@ export const createUserAction = async (data: UserType) => {
     body: data,
   });
 
-  if (!res.status) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/user");
+  revalidateLocalizedPath("/user/user");
 
   return {
     success: true,
@@ -41,14 +41,14 @@ export const updateUserAction = async (id: number, data: UserType) => {
     body: data,
   });
 
-  if (!res.status) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/user");
+  revalidateLocalizedPath("/user/user");
 
   return {
     success: true,
@@ -64,14 +64,14 @@ export const deleteUserAction = async (id: number) => {
     id,
   });
 
-  if (!res.success) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/user");
+  revalidateLocalizedPath("/user/user");
 
   return {
     success: true,

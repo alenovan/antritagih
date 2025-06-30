@@ -9,6 +9,8 @@ import { useState } from "react";
 import DebiturForm from "@/components/form/master/debitur";
 import ActionDialog from "@/components/ui/site/action-dialog";
 import PageContainer from "@/components/partials/container/page-container";
+import { format } from "date-fns";
+import { formatIDR } from "@/utils/currency";
 
 export default function DebiturView({
   debiturs,
@@ -65,23 +67,27 @@ export default function DebiturView({
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Fee</td>
-                  <td className="p-2">{initialData?.fee.toFixed(2)}</td>
+                  <td className="p-2">{formatIDR(initialData?.fee)}</td>
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Installment Amount</td>
                   <td className="p-2">
-                    {initialData?.installment_amount.toFixed(2)}
+                    {formatIDR(initialData?.installment_amount)}
                   </td>
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Remaining Debt</td>
                   <td className="p-2">
-                    {initialData?.remaining_debt.toFixed(2)}
+                    {formatIDR(initialData?.remaining_debt)}
                   </td>
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Due Date</td>
-                  <td className="p-2">{initialData?.due_date}</td>
+                  <td className="p-2">
+                    {initialData?.due_date
+                      ? format(initialData.due_date, "PPP")
+                      : "-"}
+                  </td>
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Status</td>
@@ -89,7 +95,7 @@ export default function DebiturView({
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Client Name</td>
-                  <td className="p-2">{initialData?.client.name}</td>
+                  <td className="p-2">{initialData?.client_name}</td>
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Branch Location</td>
@@ -139,15 +145,23 @@ export default function DebiturView({
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Last Paid Date</td>
-                  <td className="p-2">{initialData?.last_paid_date}</td>
+                  <td className="p-2">
+                    {initialData?.last_paid_date
+                      ? format(initialData.last_paid_date, "PPP")
+                      : "-"}
+                  </td>
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Last Paid Due Date</td>
-                  <td className="p-2">{initialData?.last_paid_due_date}</td>
+                  <td className="p-2">
+                    {initialData?.last_paid_due_date
+                      ? format(initialData.last_paid_due_date, "PPP")
+                      : "-"}
+                  </td>
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Total Debt</td>
-                  <td className="p-2">{initialData?.total_debt.toFixed(2)}</td>
+                  <td className="p-2">{formatIDR(initialData?.total_debt)}</td>
                 </tr>
                 <tr>
                   <td className="p-2 font-semibold">Status (Numerical)</td>

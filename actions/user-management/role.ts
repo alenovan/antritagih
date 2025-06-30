@@ -9,7 +9,7 @@ import {
   deleteRolePermission,
   createRolePermission,
 } from "@/services/user-management/role";
-import { revalidatePath } from "next/cache";
+import { revalidateLocalizedPath } from "@/utils/revalidate";
 
 export const createRoleAction = async (data: RoleType) => {
   const session = await auth();
@@ -19,14 +19,14 @@ export const createRoleAction = async (data: RoleType) => {
     body: data,
   });
 
-  if (!res.status) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/role");
+  revalidateLocalizedPath("/user/role");
 
   return {
     success: true,
@@ -46,7 +46,7 @@ export const createRolePermissionAction = async (
     body: data,
   });
 
-  if (!res.success) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
@@ -68,14 +68,14 @@ export const updateRoleAction = async (id: number, data: RoleType) => {
     body: data,
   });
 
-  if (!res.status) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/role");
+  revalidateLocalizedPath("/user/role");
 
   return {
     success: true,
@@ -91,14 +91,14 @@ export const deleteRoleAction = async (id: number) => {
     id,
   });
 
-  if (!res.success) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/dashboard/user-management/role");
+  revalidateLocalizedPath("/user/role");
 
   return {
     success: true,
@@ -118,7 +118,7 @@ export const deleteRolePermissionAction = async (
     idPermission,
   });
 
-  if (!res.success) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,

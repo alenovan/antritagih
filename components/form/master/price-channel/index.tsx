@@ -53,8 +53,12 @@ export default function PriceChannelForm({
     defaultValues: {
       channel: initialData?.channel || "",
       fee: initialData?.fee || undefined,
-      effective_start_date: initialData?.effective_start_date || undefined,
-      effective_end_date: initialData?.effective_end_date || undefined,
+      effective_start_date: initialData?.effective_start_date
+        ? new Date(initialData.effective_start_date)
+        : undefined,
+      effective_end_date: initialData?.effective_end_date
+        ? new Date(initialData.effective_end_date)
+        : undefined,
     },
   });
 
@@ -114,14 +118,14 @@ export default function PriceChannelForm({
           name="effective_start_date"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Expired At</FormLabel>
+              <FormLabel>Effective Start Date</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "pl-3 text-left font-normal",
+                        "md:py-2 md:px-3 h-9 text-left font-normal",
                         !field.value && "text-muted-foreground"
                       )}
                     >
@@ -153,14 +157,14 @@ export default function PriceChannelForm({
           name="effective_end_date"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Expired At</FormLabel>
+              <FormLabel>Effective End Date</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "pl-3 text-left font-normal",
+                        "md:py-2 md:px-3 h-9 text-left font-normal",
                         !field.value && "text-muted-foreground"
                       )}
                     >

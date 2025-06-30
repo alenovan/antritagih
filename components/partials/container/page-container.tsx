@@ -6,7 +6,7 @@ import SiteBreadcrumb from "@/components/ui/site/site-breadcrumb";
 export default function PageContainer({
   children,
   title,
-  search = true,
+  search = false,
   custom,
   onCreate,
 }: {

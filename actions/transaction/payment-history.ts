@@ -3,7 +3,7 @@
 import { auth } from "@/lib/auth";
 import { UploadType } from "@/lib/zod";
 import { uploadPaymentHistory } from "@/services/transaction/payment-history";
-import { revalidatePath } from "next/cache";
+import { revalidateLocalizedPath } from "@/utils/revalidate";
 
 export const uploadPaymentHistoryAction = async (data: UploadType) => {
   const session = await auth();
@@ -13,14 +13,14 @@ export const uploadPaymentHistoryAction = async (data: UploadType) => {
     body: data,
   });
 
-  if (!res.status) {
+  if (res.success === false) {
     return {
       success: false,
       message: res?.message,
     };
   }
 
-  revalidatePath("/transactional/payment-history");
+  revalidateLocalizedPath("/transactional/payment-history");
 
   return {
     success: true,

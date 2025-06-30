@@ -8,6 +8,7 @@ import { useState } from "react";
 import ActionDialog from "@/components/ui/site/action-dialog";
 import PageContainer from "@/components/partials/container/page-container";
 import { format } from "date-fns";
+import { formatIDR } from "@/utils/currency";
 
 export default function AgentCallActivityView({
   agentCallActivitys,
@@ -63,7 +64,7 @@ export default function AgentCallActivityView({
                 <tr>
                   <td className="p-2 font-semibold">Nominal</td>
                   <td className="p-2">
-                    ${initialData?.jumlah_tagihan.toFixed(2)}
+                    {formatIDR(initialData?.jumlah_tagihan)}
                   </td>
                 </tr>
                 <tr>
@@ -125,7 +126,7 @@ export default function AgentCallActivityView({
                 <tr>
                   <td className="p-2 font-semibold">Channel Cost</td>
                   <td className="p-2">
-                    {initialData?.channel_cost.toFixed(2)}
+                    {formatIDR(initialData?.channel_cost)}
                   </td>
                 </tr>
               </tbody>

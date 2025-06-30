@@ -1,6 +1,9 @@
 type Debitur = {
   id: number;
+  created_at: Date;
+  updated_at: Date;
   client_id: number;
+  client_name: string;
   account_number: string;
   identity_number: string;
   product_type: string;
@@ -24,9 +27,9 @@ type Debitur = {
   color: string;
   manufacturing_year: number;
   next_installment_number: number;
-  last_paid_date: string;
-  last_paid_due_date: string;
-  due_date: string;
+  last_paid_date: Date;
+  last_paid_due_date: Date;
+  due_date: Date;
   zone: string;
   tenur: number;
   branch_location: string;
@@ -35,5 +38,6 @@ type Debitur = {
   remaining_debt: number;
   status: number;
   call_status: string;
-  client: Client;
+  payment_status: string;
+  client?: Client;
 };
