@@ -30,19 +30,3 @@ export async function getPaymentHistory({
     token: token,
   });
 }
-
-export async function uploadPaymentHistory({
-  token,
-  body,
-}: {
-  token: string;
-  body: Record<string, string | number | boolean>;
-}) {
-  return fetchAPI<GeneralAPIResponse>({
-    type: "server",
-    method: "POST",
-    endpoint: `/transactional/payment-history/upload`,
-    token: token,
-    body: body,
-  });
-}

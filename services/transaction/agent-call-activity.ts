@@ -55,7 +55,7 @@ export async function getUploadActivity({
   token: string;
   query?: ApiParameter["queryParams"];
 }) {
-  return fetchAPI<GeneralAPIFetchResponse<Upload>>({
+  return fetchAPI<GeneralAPIFetchResponse<Upload[]>>({
     type: "server",
     method: "GET",
     endpoint: `/transactional/uploaded-file`,
