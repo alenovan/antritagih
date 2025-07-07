@@ -41,3 +41,12 @@ type Debitur = {
   payment_status: string;
   client?: Client;
 };
+
+type DebiturAdditional = {
+  id: number;
+  created_at: Date;
+  updated_at: Date;
+  data: string;
+  source: string;
+  identifier: string;
+};

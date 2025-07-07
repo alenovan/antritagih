@@ -29,9 +29,9 @@ export const createPriceChannelAction = async (data: PriceChannelType) => {
     },
   });
 
-  if (res.success === false) {
+  if (res.status === false) {
     return {
-      success: false,
+      status: res.status,
       message: res?.message,
     };
   }
@@ -39,7 +39,7 @@ export const createPriceChannelAction = async (data: PriceChannelType) => {
   revalidateLocalizedPath("/master/price-channel");
 
   return {
-    success: true,
+    status: res.status,
     message: "PriceChannel Added",
   };
 };
@@ -66,9 +66,9 @@ export const updatePriceChannelAction = async (
     },
   });
 
-  if (res.success === false) {
+  if (res.status === false) {
     return {
-      success: false,
+      status: res.status,
       message: res?.message,
     };
   }
@@ -76,7 +76,7 @@ export const updatePriceChannelAction = async (
   revalidateLocalizedPath("/master/price-channel");
 
   return {
-    success: true,
+    status: res.status,
     message: "PriceChannel Updated",
   };
 };
@@ -89,9 +89,9 @@ export const deletePriceChannelAction = async (id: number) => {
     id,
   });
 
-  if (res.success === false) {
+  if (res.status === false) {
     return {
-      success: false,
+      status: res.status,
       message: res?.message,
     };
   }
@@ -99,7 +99,7 @@ export const deletePriceChannelAction = async (id: number) => {
   revalidateLocalizedPath("/master/price-channel");
 
   return {
-    success: true,
+    status: res.status,
     message: "PriceChannel Deleted",
   };
 };

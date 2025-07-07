@@ -5,14 +5,19 @@ export const authSchema = z.object({
   password: z.string().min(4),
 });
 
+export const clientParentSchema = z.object({
+  name: z.string().trim().min(1, "Name is required"),
+});
+
 export const clientSchema = z.object({
   name: z.string().trim().min(1, "Name is required"),
+  parent_client_id: z.coerce.number(),
 });
 
 export const debiturSchema = z.object({
   client_id: z.number().min(1, "Client is required"),
   account_number: z.string().trim().min(1, "Account Number is required"),
-  identiy_number: z.string().trim().min(1, "Identity Number is required"),
+  identity_number: z.string().trim().min(1, "Identity Number is required"),
   product_type: z.string().trim().min(1, "Product Type is required"),
   fee: z.coerce.number().min(1, "Fee is required"),
   name: z.string().trim().min(1, "Name is required"),
@@ -32,24 +37,32 @@ export const debiturSchema = z.object({
   asset_category: z.string().trim().min(1, "Asset Category is required"),
   license_plate: z.string().trim().min(1, "License Plate is required"),
   color: z.string().trim().min(1, "Color is required"),
-  manufacturing_year: z.coerce.number().min(1, "Manufacturing Year is required"),
+  manufacturing_year: z.coerce
+    .number()
+    .min(1, "Manufacturing Year is required"),
   next_installment_number: z.coerce
     .number()
     .min(1, "Next Installment Number is required"),
-  last_paid_date: z.string().trim().min(1, "Last Paid Date is required"),
-  last_paid_due_date: z
-    .string()
-    .trim()
-    .min(1, "Last Paid Due Date is required"),
-  due_date: z.string().trim().min(1, "Due Date is required"),
+  last_paid_date: z.date(),
+  last_paid_due_date: z.date(),
+  due_date: z.date(),
   zone: z.string().trim().min(1, "Zone is required"),
   tenur: z.coerce.number().min(1, "Tenur is required"),
   branch_location: z.string().trim().min(1, "Branch Location is required"),
-  installment_amount: z.coerce.number().min(1, "Installment Amount is required"),
+  installment_amount: z.coerce
+    .number()
+    .min(1, "Installment Amount is required"),
   total_debt: z.coerce.number().min(1, "Total Debt is required"),
   remaining_debt: z.coerce.number().min(1, "Remaining Debt is required"),
   status: z.coerce.number().min(1, "Status is required"),
   call_status: z.string().trim().min(1, "Call Status is required"),
+  payment_status: z.string().trim().min(1, "Payment Status is required"),
+});
+
+export const debiturAdditionalSchema = z.object({
+  data: z.string().trim().min(1, "Data is required"),
+  source: z.string().trim().min(1, "Source is required"),
+  identifier: z.string().trim().min(1, "Identifier is required"),
 });
 
 export const priceChannelSchema = z.object({
@@ -80,12 +93,16 @@ export const checkDebiturSchema = z.object({
 });
 
 export const uploadSchema = z.object({
+  identifier: z.string().trim().min(1, "Identity number is required"),
+  client_id: z.number().optional(),
   month: z.string().trim().min(1, "Month is required"),
-  // filename: z.array(),
+  filename: z.array(z.string().trim().min(1, "Filename cannot be empty")),
 });
 
 export type ClientType = z.infer<typeof clientSchema>;
+export type ClientParentType = z.infer<typeof clientParentSchema>;
 export type DebiturType = z.infer<typeof debiturSchema>;
+export type DebiturAdditionalType = z.infer<typeof debiturAdditionalSchema>;
 export type PriceChannelType = z.infer<typeof priceChannelSchema>;
 export type UserType = z.infer<typeof userSchema>;
 export type RoleType = z.infer<typeof roleSchema>;

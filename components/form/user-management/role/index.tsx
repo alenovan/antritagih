@@ -49,7 +49,7 @@ export default function RoleForm({
         ? await createRoleAction(data)
         : await updateRoleAction(initialData?.id as number, data);
 
-    if (res.success) {
+    if (res.status) {
       toast.success(res.message);
       onClose();
     } else {

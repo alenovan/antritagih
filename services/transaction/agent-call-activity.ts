@@ -1,3 +1,4 @@
+import { UploadType } from "@/lib/zod";
 import fetchAPI, { ApiParameter } from "../api";
 
 export async function getAgentCallActivitys({
@@ -36,13 +37,29 @@ export async function uploadAgentCallActivity({
   body,
 }: {
   token: string;
-  body: Record<string, string | number | boolean>;
+  body: UploadType;
 }) {
   return fetchAPI<GeneralAPIResponse>({
     type: "server",
     method: "POST",
-    endpoint: `/transactional/agent-call-activity/upload`,
+    endpoint: `/transactional/uploaded-file`,
     token: token,
     body: body,
+  });
+}
+
+export async function getUploadActivity({
+  token,
+  query,
+}: {
+  token: string;
+  query?: ApiParameter["queryParams"];
+}) {
+  return fetchAPI<GeneralAPIFetchResponse<Upload>>({
+    type: "server",
+    method: "GET",
+    endpoint: `/transactional/uploaded-file`,
+    token: token,
+    queryParams: query,
   });
 }

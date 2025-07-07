@@ -61,7 +61,7 @@ export default function UserForm({
         ? await createUserAction(data)
         : await updateUserAction(initialData?.id as number, data);
 
-    if (res.success) {
+    if (res.status) {
       toast.success(res.message);
       onClose();
     } else {

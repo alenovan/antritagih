@@ -4,6 +4,7 @@ export type SubChildren = {
   active: boolean;
   children?: SubChildren[];
 };
+
 export type Submenu = {
   href: string;
   label: string;
@@ -20,6 +21,8 @@ export type Menu = {
   icon: any;
   submenus: Submenu[];
   id: string;
+  resource?: string;
+  restricted?: boolean;
 };
 
 export type Group = {
@@ -55,6 +58,8 @@ export function getMenuList(pathname: string, t: any): Group[] {
           active: pathname.includes("/master/debitur"),
           icon: "heroicons-outline:user-group", // Debitur icon
           submenus: [],
+          resource: "debitur",
+          restricted: true,
         },
         {
           id: "price-channel",
@@ -63,14 +68,35 @@ export function getMenuList(pathname: string, t: any): Group[] {
           active: pathname.includes("/master/price-channel"),
           icon: "heroicons-outline:currency-dollar", // Price Channel icon
           submenus: [],
+          resource: "price_channel",
+          restricted: true,
         },
         {
           id: "client",
-          href: "/master/client",
+          href: "/master/client/parent",
           label: "Client",
           active: pathname.includes("/master/client"),
           icon: "heroicons-outline:user-group", // Client icon
-          submenus: [],
+          submenus: [
+            {
+              id: "client-parent",
+              href: "/master/client/parent",
+              label: "Client Parent",
+              active: pathname.includes("/master/client/parent"),
+              icon: "heroicons-outline:user-group",
+              children: [],
+            },
+            {
+              id: "client",
+              href: "/master/client/child",
+              label: "Client Child",
+              active: pathname.includes("/master/client/child"),
+              icon: "heroicons-outline:user-group",
+              children: [],
+            },
+          ],
+          resource: "client",
+          restricted: true,
         },
       ],
     },
@@ -85,6 +111,8 @@ export function getMenuList(pathname: string, t: any): Group[] {
           active: pathname.includes("/transactional/agent-call-activity"),
           icon: "heroicons-outline:phone", // Agent Call Activity icon
           submenus: [],
+          resource: "agent_call_activity",
+          restricted: true,
         },
         {
           id: "rekap-payment-data",
@@ -93,6 +121,8 @@ export function getMenuList(pathname: string, t: any): Group[] {
           active: pathname.includes("/transactional/rekap-payment-data"),
           icon: "heroicons-outline:document-text", // Rekap Payment Data icon
           submenus: [],
+          resource: "rekap_payment",
+          restricted: true,
         },
         {
           id: "proviling-member",
@@ -123,6 +153,8 @@ export function getMenuList(pathname: string, t: any): Group[] {
           active: pathname.includes("/user/user"),
           icon: "heroicons-outline:user-circle", // User icon
           submenus: [],
+          resource: "user",
+          restricted: true,
         },
         {
           id: "role",
@@ -131,6 +163,8 @@ export function getMenuList(pathname: string, t: any): Group[] {
           active: pathname.includes("/user/role"),
           icon: "heroicons-outline:key", // Role icon
           submenus: [],
+          resource: "role",
+          restricted: true,
         },
       ],
     },
@@ -166,6 +200,8 @@ export function getHorizontalMenuList(pathname: string, t: any): Group[] {
           active: pathname.includes("/master/debitur"),
           icon: "heroicons-outline:user-group", // Debitur icon
           submenus: [],
+          resource: "debitur",
+          restricted: true,
         },
         {
           id: "price-channel",
@@ -174,14 +210,33 @@ export function getHorizontalMenuList(pathname: string, t: any): Group[] {
           active: pathname.includes("/master/price-channel"),
           icon: "heroicons-outline:currency-dollar", // Price Channel icon
           submenus: [],
+          resource: "price_channel",
+          restricted: true,
         },
         {
           id: "client",
-          href: "/master/client",
+          href: "/master/client/parent",
           label: "Client",
           active: pathname.includes("/master/client"),
           icon: "heroicons-outline:user-group", // Client icon
-          submenus: [],
+          submenus: [
+            {
+              href: "/master/client/parent",
+              label: "Client Parent",
+              active: pathname.includes("/master/client/parent"),
+              icon: "heroicons-outline:user-group",
+              children: [],
+            },
+            {
+              href: "/master/client/child",
+              label: "Client Child",
+              active: pathname.includes("/master/client/child"),
+              icon: "heroicons-outline:user-group",
+              children: [],
+            },
+          ],
+          resource: "client",
+          restricted: true,
         },
       ],
     },
@@ -196,6 +251,8 @@ export function getHorizontalMenuList(pathname: string, t: any): Group[] {
           active: pathname.includes("/transactional/agent-call-activity"),
           icon: "heroicons-outline:phone", // Agent Call Activity icon
           submenus: [],
+          resource: "agent_call_activity",
+          restricted: true,
         },
         {
           id: "rekap-payment-data",
@@ -204,6 +261,8 @@ export function getHorizontalMenuList(pathname: string, t: any): Group[] {
           active: pathname.includes("/transactional/rekap-payment-data"),
           icon: "heroicons-outline:document-text", // Rekap Payment Data icon
           submenus: [],
+          resource: "rekap_payment",
+          restricted: true,
         },
         {
           id: "proviling-member",
@@ -234,6 +293,8 @@ export function getHorizontalMenuList(pathname: string, t: any): Group[] {
           active: pathname.includes("/user/user"),
           icon: "heroicons-outline:user-circle", // User icon
           submenus: [],
+          resource: "user",
+          restricted: true,
         },
         {
           id: "role",
@@ -242,6 +303,8 @@ export function getHorizontalMenuList(pathname: string, t: any): Group[] {
           active: pathname.includes("/user/role"),
           icon: "heroicons-outline:key", // Role icon
           submenus: [],
+          resource: "role",
+          restricted: true,
         },
       ],
     },

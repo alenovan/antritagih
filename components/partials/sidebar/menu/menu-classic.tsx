@@ -25,6 +25,7 @@ import Logo from "@/components/logo";
 import SidebarHoverToggle from "@/components/partials/sidebar/sidebar-hover-toggle";
 import { useMenuHoverConfig } from "@/hooks/use-menu-hover";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import AuthorizedNavMenu from "../../container/authorized-nav-menu";
 
 export function MenuClassic({}) {
   // translate
@@ -106,30 +107,47 @@ export function MenuClassic({}) {
                 ) : null}
 
                 {menus.map(
-                  ({ href, label, icon, active, id, submenus }, index) =>
+                  (
+                    {
+                      href,
+                      label,
+                      icon,
+                      active,
+                      id,
+                      submenus,
+                      resource,
+                      restricted,
+                    },
+                    index
+                  ) =>
                     submenus.length === 0 ? (
                       <div className="w-full mb-2 last:mb-0" key={index}>
-                        <TooltipProvider disableHoverableContent>
-                          <Tooltip delayDuration={100}>
-                            <TooltipTrigger asChild>
-                              <div>
-                                <MenuItem
-                                  label={label}
-                                  icon={icon}
-                                  href={href}
-                                  active={active}
-                                  id={id}
-                                  collapsed={collapsed}
-                                />
-                              </div>
-                            </TooltipTrigger>
-                            {collapsed && (
-                              <TooltipContent side="right">
-                                {label}
-                              </TooltipContent>
-                            )}
-                          </Tooltip>
-                        </TooltipProvider>
+                        <AuthorizedNavMenu
+                          resource={resource as string}
+                          restricted={restricted as boolean}
+                        >
+                          <TooltipProvider disableHoverableContent>
+                            <Tooltip delayDuration={100}>
+                              <TooltipTrigger asChild>
+                                <div>
+                                  <MenuItem
+                                    label={label}
+                                    icon={icon}
+                                    href={href}
+                                    active={active}
+                                    id={id}
+                                    collapsed={collapsed}
+                                  />
+                                </div>
+                              </TooltipTrigger>
+                              {collapsed && (
+                                <TooltipContent side="right">
+                                  {label}
+                                </TooltipContent>
+                              )}
+                            </Tooltip>
+                          </TooltipProvider>
+                        </AuthorizedNavMenu>
                       </div>
                     ) : (
                       <div className="w-full mb-2" key={index}>

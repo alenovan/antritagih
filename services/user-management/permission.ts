@@ -7,19 +7,6 @@ export async function getPermissions({
   token: string;
   query?: ApiParameter["queryParams"];
 }) {
-  return {
-    status: true,
-    message: "success",
-    data: [
-      {
-        id: 1,
-        resource: "user",
-        permission: "create",
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-    ],
-  };
   return fetchAPI<GeneralAPIFetchResponse<Permission[]>>({
     type: "server",
     method: "GET",

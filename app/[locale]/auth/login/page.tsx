@@ -13,7 +13,7 @@ const Login = ({ params: { locale } }: { params: { locale: string } }) => {
           <div className="lg:block hidden flex-1 overflow-hidden text-[40px] leading-[48px] text-default-600 relative z-1 bg-default-50">
             <div className="max-w-[520px] pt-20 ps-20 ">
               <h4>
-                AntriaTagih
+                Hi-Tech Smart Solution
                 <span className="text-default-800 font-bold ms-2">
                   Easily Manage Debtor Information
                 </span>
@@ -41,7 +41,7 @@ const Login = ({ params: { locale } }: { params: { locale: string } }) => {
                 <div className="text-center 2xl:mb-10 mb-4">
                   <h4 className="font-medium">Sign in</h4>
                   <div className="text-default-500 text-base">
-                    Sign in to your account to start using AntriaAku
+                    Sign in to your account to start using Hi-Tech Smart Solution
                   </div>
                 </div>
                 <LoginForm />

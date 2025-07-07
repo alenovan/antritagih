@@ -17,13 +17,10 @@ const s3Client = new S3Client({
 export async function uploadFilesToS3(
   files: File[],
   bucketName: string,
-  clientName?: string
+  clientName?: string,
+  month?: string
 ): Promise<string[]> {
   const currentDate = new Date();
-  const formattedDate = `${currentDate.getFullYear()}-${String(
-    currentDate.getMonth() + 1
-  ).padStart(2, "0")}`;
-
   if (files.length === 0) {
     console.error("No files to upload.");
     throw new Error("No files to upload.");
@@ -39,8 +36,8 @@ export async function uploadFilesToS3(
     const contentType = file.type;
 
     const customFolderPath = clientName
-      ? `${clientName}/${formattedDate}/${fileName}`
-      : `${formattedDate}/${fileName}`;
+      ? `${clientName}/${month}/${fileName}`
+      : `${month}/${fileName}`;
 
     const params: PutObjectCommandInput = {
       Bucket: bucketName,

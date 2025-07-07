@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { DataTable } from "@/components/ui/data-table/data-table";
 import { generateColumns } from "./column";
 import { useAuthorization } from "@/hooks/use-authorization";
@@ -14,11 +13,17 @@ import ActionDialog from "@/components/ui/site/action-dialog";
 import PageContainer from "@/components/partials/container/page-container";
 import { Button } from "@/components/ui/button";
 import Download from "@/components/form/transaction/upload/download";
+import { useRouter } from "next/navigation";
+import { deleteUploadAction } from "@/actions/master/upload";
 
-export default function UploadView({ uploads }: { uploads: Upload[] }) {
+export default function UploadView({
+  uploads,
+}: {
+  uploads: GeneralAPIFetchResponse<Upload[]>;
+}) {
   const { hasPermission } = useAuthorization();
   const { confirm } = useConfirmationDialog();
-
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenTemplate, setIsOpenTemplate] = useState(false);
   const [initialData, setInitialData] = useState<{
@@ -29,7 +34,7 @@ export default function UploadView({ uploads }: { uploads: Upload[] }) {
   return (
     <PageContainer
       title="Upload"
-      onCreate={() => setIsOpen(true)}
+      onCreate={() => router.push("upload/detail")}
       custom={
         <Button size="sm" onClick={() => setIsOpenTemplate(true)}>
           Download Template
@@ -39,19 +44,21 @@ export default function UploadView({ uploads }: { uploads: Upload[] }) {
       <DataTable
         columns={generateColumns({
           hasPermission,
-          onRetryClick: async (id) => {
+          onDeleteClick: async (id) => {
             const confirmed = await confirm({
-              title: "Retry Item",
-              description: "Are you sure you want to retry this item?",
-              confirmText: "Yes, retry",
+              title: "Delete Item",
+              description: "Are you sure you want to delete this item?",
+              confirmText: "Yes, delete",
               cancelText: "No, keep it",
+              type: "destructive",
             });
 
             if (confirmed) {
-              // To Do
-              // const res = await deleteUploadAction(id);
-              // if (!res.success) return toast.error(res.message);
-              // return toast.success(res.message);
+              const res = await deleteUploadAction(id);
+
+              if (!res.status) return toast.error(res.message);
+
+              return toast.success(res.message);
             }
           },
           onEditClick: (rowData) => {
@@ -62,7 +69,8 @@ export default function UploadView({ uploads }: { uploads: Upload[] }) {
             setIsOpen(true);
           },
         })}
-        data={uploads}
+        data={uploads.data}
+        meta={uploads.meta}
       />
 
       <ActionDialog

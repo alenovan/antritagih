@@ -1,7 +1,7 @@
 // user data
 const users = [
   {
-    name: "AntriTagih",
+    name: "Hi-Tech Smart Solution",
     email: "antriatech@gmail.com",
     password: "password",
     image: "/images/users/user-1.jpg",

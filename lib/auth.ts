@@ -58,7 +58,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           password: credentials.password as string,
         });
 
-        if (!user.data.token && !user.status) {
+        if (user.status === false) {
           console.log("================");
           console.error(
             "error from initial login: ",
@@ -156,7 +156,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           getUserProfile(token.token as string),
         ]);
 
-        if (profile.status === false) {
+        if (
+          profile.status === false ||
+          profile.message.includes("invalid token")
+        ) {
           return null;
         }
 
@@ -200,7 +203,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   cookies: {
     sessionToken: {
       name: `${
-        process.env.NODE_ENV === "production" ? "__Secure-AntriaTagih-" : ""
+        process.env.NODE_ENV === "production" ? "__Secure-Hi-Tech Smart Solution-" : ""
       }authjs.session-token`,
       options: {
         secure: process.env.NODE_ENV === "production" ? true : false,

@@ -13,6 +13,7 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
   if (!session) {
     redirect({ href: "/", locale: "en" });
   }
+
   return (
     <LayoutProvider>
       <DashCodeHeader />

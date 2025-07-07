@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AntriaTagih",
+  title: "Hi-Tech Smart Solution",
   description: "Dashcode is a popular dashboard template.",
 };
 const Layout = ({ children }: { children: React.ReactNode }) => {

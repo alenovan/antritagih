@@ -2,28 +2,49 @@
 
 import { auth } from "@/lib/auth";
 import { UploadType } from "@/lib/zod";
-import { uploadAgentCallActivity } from "@/services/transaction/agent-call-activity";
+import {
+  getAgentCallActivity,
+  uploadAgentCallActivity,
+} from "@/services/transaction/agent-call-activity";
 import { revalidateLocalizedPath } from "@/utils/revalidate";
+
+export const getAgentCallActivityAction = async (id: number) => {
+  const session = await auth();
+
+  const data = await getAgentCallActivity({
+    token: session?.user.token as string,
+    id,
+  });
+
+  return data;
+};
 
 export const uploadAgentCallActivityAction = async (data: UploadType) => {
   const session = await auth();
 
+  if (!session?.user?.token) {
+    return {
+      status: false,
+      message: "User is not authenticated or token is missing",
+    };
+  }
+
   const res = await uploadAgentCallActivity({
-    token: session?.user.token as string,
+    token: session.user.token,
     body: data,
   });
 
-  if (res.success === false) {
+  if (res.status === false) {
     return {
-      success: false,
-      message: res?.message,
+      status: res.status,
+      message: res?.message || "Upload failed",
     };
   }
 
   revalidateLocalizedPath("/transactional/agent-call-activity");
 
   return {
-    success: true,
-    message: "Agent Call Activity Added",
+    status: true,
+    message: "Upload Data Added",
   };
 };

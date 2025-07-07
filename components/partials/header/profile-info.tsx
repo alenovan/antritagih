@@ -19,6 +19,7 @@ import Image from "next/image";
 import { Link, usePathname } from "@/i18n/routing";
 import { logoutAction } from "@/actions/auth";
 import { Session } from "next-auth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const ProfileInfo = ({ session }: { session: Session | null }) => {
   const paths = usePathname();
@@ -31,17 +32,16 @@ const ProfileInfo = ({ session }: { session: Session | null }) => {
   return (
     <div className="md:block hidden">
       <DropdownMenu>
-        <DropdownMenuTrigger asChild className=" cursor-pointer">
-          <div className=" flex items-center gap-3  text-default-800 ">
-            <Image
-              src={session?.user?.image as string}
-              alt={session?.user?.name?.charAt(0) as string}
-              width={36}
-              height={36}
-              className="rounded-full"
-            />
+        <DropdownMenuTrigger asChild className="cursor-pointer">
+          <div className=" flex items-center gap-3 text-default-800">
+            <Avatar size="sm" className="rounded-full">
+              <AvatarImage src={session?.user?.image as string} />
+              <AvatarFallback>
+                {session?.user?.name?.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
 
-            <div className="text-sm font-medium  capitalize lg:block hidden  ">
+            <div className="text-sm font-medium capitalize lg:block hidden">
               {session?.user?.name}
             </div>
             <span className="text-base  me-2.5 lg:inline-block hidden">
@@ -51,13 +51,12 @@ const ProfileInfo = ({ session }: { session: Session | null }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 p-0" align="end">
           <DropdownMenuLabel className="flex gap-2 items-center mb-1 p-3">
-            <Image
-              src={session?.user?.image as string}
-              alt={session?.user?.name?.charAt(0) as string}
-              width={36}
-              height={36}
-              className="rounded-full"
-            />
+            <Avatar size="sm" className="rounded-full">
+              <AvatarImage src={session?.user?.image as string} />
+              <AvatarFallback>
+                {session?.user?.name?.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
 
             <div>
               <div className="text-sm font-medium text-default-800 capitalize ">

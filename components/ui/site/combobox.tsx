@@ -61,13 +61,18 @@ export function Combobox({
                   key={item.value}
                   value={item.value.toString()}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    form.setValue(
-                      field.name,
-                      typeof item.value === "number"
-                        ? Number(currentValue)
-                        : currentValue
-                    );
+                    if (field?.value === item.value) {
+                      setValue("");
+                      form.setValue(field.name, "");
+                    } else {
+                      setValue(currentValue);
+                      form.setValue(
+                        field.name,
+                        typeof item.value === "number"
+                          ? Number(currentValue)
+                          : currentValue
+                      );
+                    }
                     setOpen(false);
                   }}
                 >

@@ -9,12 +9,14 @@ export default function PageContainer({
   search = false,
   custom,
   onCreate,
+  onUpload,
 }: {
   children: React.ReactNode;
   title: string;
   search?: boolean;
   custom?: React.ReactNode;
   onCreate?: () => void;
+  onUpload?: () => void;
 }) {
   return (
     <div>
@@ -32,6 +34,11 @@ export default function PageContainer({
                 {onCreate && (
                   <Button onClick={onCreate} size="sm">
                     Create
+                  </Button>
+                )}
+                {onUpload && (
+                  <Button onClick={onUpload} size="sm">
+                    Upload
                   </Button>
                 )}
 

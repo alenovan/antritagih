@@ -7,16 +7,6 @@ export async function getRoles({
   token: string;
   query?: ApiParameter["queryParams"];
 }) {
-  return {
-    status: true,
-    message: "success",
-    data: [
-      {
-        id: 1,
-        name: "Admin Role",
-      },
-    ],
-  };
   return fetchAPI<GeneralAPIFetchResponse<Role[]>>({
     type: "server",
     method: "GET",

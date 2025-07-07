@@ -1,4 +1,4 @@
-import { Link } from '@/i18n/routing';
+import { Link } from "@/i18n/routing";
 import RegForm from "@/components/partials/auth/reg-form";
 import Image from "next/image";
 import Copyright from "@/components/partials/auth/copyright";
@@ -9,8 +9,7 @@ const Register = () => {
     <>
       <div className="flex w-full items-center overflow-hidden min-h-dvh h-dvh basis-full">
         <div className="overflow-y-auto flex flex-wrap w-full h-dvh">
-          <div
-            className="lg:block hidden flex-1 overflow-hidden text-[40px] leading-[48px] text-default-600 relative z-1 bg-default-50">
+          <div className="lg:block hidden flex-1 overflow-hidden text-[40px] leading-[48px] text-default-600 relative z-1 bg-default-50">
             <div className="max-w-[520px] pt-20 ps-20">
               <Link href="/" className="mb-6 inline-block">
                 <Logo />
@@ -45,7 +44,7 @@ const Register = () => {
                 <div className="text-center 2xl:mb-10 mb-5">
                   <h4 className="font-medium">Sign up</h4>
                   <div className="text-default-500  text-base">
-                    Create an account to start using Dashcode
+                    Create an account to start using Hi-Tech Smart Solution
                   </div>
                 </div>
                 <RegForm />

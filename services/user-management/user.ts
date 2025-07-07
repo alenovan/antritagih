@@ -7,22 +7,6 @@ export async function getUsers({
   token: string;
   query?: ApiParameter["queryParams"];
 }) {
-  return {
-    status: true,
-    message: "success",
-    data: [
-      {
-        id: 1,
-        name: "Admin",
-        email: "admin@example.com",
-        status: true,
-        role: {
-          id: 1,
-          name: "Admin",
-        },
-      },
-    ],
-  };
   return fetchAPI<GeneralAPIFetchResponse<User[]>>({
     type: "server",
     method: "GET",
@@ -42,7 +26,7 @@ export async function getUser({ token, id }: { token: string; id: number }) {
 }
 
 export async function getUserProfile(token: string) {
-  return fetchAPI<GeneralAPIFetchResponse<User>>({
+  return fetchAPI<GeneralAPIFetchResponse<UserProfile>>({
     type: "server",
     method: "GET",
     endpoint: `/user-management/user/profile`,

@@ -49,7 +49,7 @@ export default function UserView({
             if (confirmed) {
               const res = await deleteUserAction(id);
 
-              if (!res.success) return toast.error(res.message);
+              if (!res.status) return toast.error(res.message);
 
               return toast.success(res.message);
             }

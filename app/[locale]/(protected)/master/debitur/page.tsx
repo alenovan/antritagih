@@ -3,6 +3,7 @@ import { getDebiturs } from "@/services/master/debitur";
 import DebiturView from "@/components/views/master/debitur";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getClients } from "@/services/master/client";
 
 export default async function DebiturPage({
   searchParams,
@@ -28,9 +29,10 @@ async function DebiturData({
     per_page: parseInt((searchParams.per_page as string) || "10", 10),
   };
 
-  const [debiturs] = await Promise.all([
+  const [debiturs, clients] = await Promise.all([
     getDebiturs({ token: session?.user?.token as string, query }),
+    getClients({ token: session?.user?.token as string }),
   ]);
 
-  return <DebiturView debiturs={debiturs} />;
+  return <DebiturView debiturs={debiturs} clients={clients} />;
 }

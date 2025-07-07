@@ -19,9 +19,9 @@ export const createRoleAction = async (data: RoleType) => {
     body: data,
   });
 
-  if (res.success === false) {
+  if (res.status === false) {
     return {
-      success: false,
+      status: res.status,
       message: res?.message,
     };
   }
@@ -29,7 +29,7 @@ export const createRoleAction = async (data: RoleType) => {
   revalidateLocalizedPath("/user/role");
 
   return {
-    success: true,
+    status: res.status,
     message: "Role Added",
   };
 };
@@ -46,15 +46,15 @@ export const createRolePermissionAction = async (
     body: data,
   });
 
-  if (res.success === false) {
+  if (res.status === false) {
     return {
-      success: false,
+      status: res.status,
       message: res?.message,
     };
   }
 
   return {
-    success: true,
+    status: res.status,
     message: "Update Role Permission Success",
   };
 };
@@ -68,9 +68,9 @@ export const updateRoleAction = async (id: number, data: RoleType) => {
     body: data,
   });
 
-  if (res.success === false) {
+  if (res.status === false) {
     return {
-      success: false,
+      status: res.status,
       message: res?.message,
     };
   }
@@ -78,7 +78,7 @@ export const updateRoleAction = async (id: number, data: RoleType) => {
   revalidateLocalizedPath("/user/role");
 
   return {
-    success: true,
+    status: res.status,
     message: "Role Updated",
   };
 };
@@ -91,9 +91,9 @@ export const deleteRoleAction = async (id: number) => {
     id,
   });
 
-  if (res.success === false) {
+  if (res.status === false) {
     return {
-      success: false,
+      status: res.status,
       message: res?.message,
     };
   }
@@ -101,7 +101,7 @@ export const deleteRoleAction = async (id: number) => {
   revalidateLocalizedPath("/user/role");
 
   return {
-    success: true,
+    status: res.status,
     message: "Role Deleted",
   };
 };
@@ -118,15 +118,15 @@ export const deleteRolePermissionAction = async (
     idPermission,
   });
 
-  if (res.success === false) {
+  if (res.status === false) {
     return {
-      success: false,
+      status: res.status,
       message: res?.message,
     };
   }
 
   return {
-    success: true,
+    status: res.status,
     message: "Delete Role Permission Success",
   };
 };

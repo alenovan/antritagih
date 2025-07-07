@@ -8,15 +8,21 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuItem,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { useLocale } from "next-intl";
+import { id as ID } from "date-fns/locale";
 
 export const generateColumns = ({
   hasPermission,
   onViewClick,
+  onEditClick,
+  onDeleteClick,
 }: {
   hasPermission: (module: string, action: string) => boolean;
   onViewClick: (data: Debitur) => void;
+  onEditClick: (data: Debitur) => void;
+  onDeleteClick: (id: number) => void;
 }) => {
   const locale = useLocale();
 
@@ -99,7 +105,7 @@ export const generateColumns = ({
       cell: ({ row }) => (
         <span>
           {row.getValue("due_date")
-            ? format(row.getValue("due_date"), "PPP")
+            ? format(row.getValue("due_date"), "PPP", { locale: ID })
             : "-"}
         </span>
       ),
@@ -142,7 +148,7 @@ export const generateColumns = ({
                 <span className="sr-only">Open menu</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-32">
+            <DropdownMenuContent align="end" className="w-40">
               <DropdownMenuItem asChild>
                 <a
                   href={`/${locale}/transactional/agent-call-activity?account_number=${row.original.account_number}`}
@@ -162,6 +168,48 @@ export const generateColumns = ({
                 >
                   Rekap Payment
                 </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a
+                  href={`/${locale}/transactional/upload/detail?option=debitur&clientid=${row.original.client_id}&clientname=${row.original.name}`}
+                  rel="noopener noreferrer"
+                  className="cursor-pointer"
+                >
+                  Upload Data
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a
+                  href={`/${locale}/master/debitur/additional?debitur_id=${row.original.id}`}
+                  rel="noopener noreferrer"
+                  className="cursor-pointer"
+                >
+                  Additional Data
+                </a>
+              </DropdownMenuItem>
+              {(hasPermission("debitur", "update") ||
+                hasPermission("debitur", "delete")) && (
+                <DropdownMenuSeparator />
+              )}
+              <DropdownMenuItem asChild>
+                {hasPermission("debitur", "update") && (
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => onEditClick(row.original)}
+                  >
+                    Edit
+                  </div>
+                )}
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                {hasPermission("debitur", "delete") && (
+                  <div
+                    className="text-red-500 cursor-pointer"
+                    onClick={() => onDeleteClick(row.original.id)}
+                  >
+                    Delete
+                  </div>
+                )}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

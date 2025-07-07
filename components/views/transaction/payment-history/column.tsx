@@ -3,6 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { formatIDR } from "@/utils/currency";
 import { Text } from "lucide-react";
+import { id as ID } from "date-fns/locale";
 
 export const generateColumns = ({
   hasPermission,
@@ -56,12 +57,16 @@ export const generateColumns = ({
     {
       accessorKey: "date_v1",
       header: "Date",
-      cell: ({ row }) => <span>{format(row.getValue("date_v1"), "PPP")}</span>,
+      cell: ({ row }) => (
+        <span>{format(row.getValue("date_v1"), "PPP", { locale: ID })}</span>
+      ),
     },
     {
       accessorKey: "date_v2",
       header: "Date 2",
-      cell: ({ row }) => <span>{format(row.getValue("date_v2"), "PPP")}</span>,
+      cell: ({ row }) => (
+        <span>{format(row.getValue("date_v2"), "PPP", { locale: ID })}</span>
+      ),
     },
     {
       accessorKey: "nominal_v1",

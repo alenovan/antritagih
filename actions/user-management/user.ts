@@ -17,9 +17,9 @@ export const createUserAction = async (data: UserType) => {
     body: data,
   });
 
-  if (res.success === false) {
+  if (res.status === false) {
     return {
-      success: false,
+      status: res.status,
       message: res?.message,
     };
   }
@@ -27,7 +27,7 @@ export const createUserAction = async (data: UserType) => {
   revalidateLocalizedPath("/user/user");
 
   return {
-    success: true,
+    status: res.status,
     message: "User Added",
   };
 };
@@ -41,9 +41,9 @@ export const updateUserAction = async (id: number, data: UserType) => {
     body: data,
   });
 
-  if (res.success === false) {
+  if (res.status === false) {
     return {
-      success: false,
+      status: res.status,
       message: res?.message,
     };
   }
@@ -51,7 +51,7 @@ export const updateUserAction = async (id: number, data: UserType) => {
   revalidateLocalizedPath("/user/user");
 
   return {
-    success: true,
+    status: res.status,
     message: "User Updated",
   };
 };
@@ -64,9 +64,9 @@ export const deleteUserAction = async (id: number) => {
     id,
   });
 
-  if (res.success === false) {
+  if (res.status === false) {
     return {
-      success: false,
+      status: res.status,
       message: res?.message,
     };
   }
@@ -74,7 +74,7 @@ export const deleteUserAction = async (id: number) => {
   revalidateLocalizedPath("/user/user");
 
   return {
-    success: true,
+    status: res.status,
     message: "User Deleted",
   };
 };

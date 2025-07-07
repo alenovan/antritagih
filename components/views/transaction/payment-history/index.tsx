@@ -4,11 +4,15 @@ import * as React from "react";
 import { DataTable } from "@/components/ui/data-table/data-table";
 import { generateColumns } from "./column";
 import { useAuthorization } from "@/hooks/use-authorization";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ActionDialog from "@/components/ui/site/action-dialog";
 import PageContainer from "@/components/partials/container/page-container";
 import { format } from "date-fns";
 import { formatIDR } from "@/utils/currency";
+import { id as ID } from "date-fns/locale";
+import { getPaymentHistoryAction } from "@/actions/transaction/payment-history";
+import useSWR from "swr";
+import { useRouter } from "next/navigation";
 
 export default function PaymentHistoryView({
   paymentHistorys,
@@ -16,18 +20,43 @@ export default function PaymentHistoryView({
   paymentHistorys: GeneralAPIFetchResponse<PaymentHistory[]>;
 }) {
   const { hasPermission } = useAuthorization();
+  const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
   const [initialData, setInitialData] = useState<PaymentHistory | null>(null);
+  const [id, setId] = useState<number | null>(null);
+  const [randId, setRandId] = useState<string>("");
+
+  const { data } = useSWR<GeneralAPIFetchResponse<PaymentHistory> | null>(
+    [randId],
+    () => {
+      if (id) return getPaymentHistoryAction(id);
+      return null;
+    },
+    {
+      revalidateOnMount: false,
+      revalidateOnFocus: false,
+    }
+  );
+
+  useEffect(() => {
+    if (data) {
+      setInitialData(data.data);
+      setIsOpen(true);
+    }
+  }, [data]);
 
   return (
-    <PageContainer title="Payment History">
+    <PageContainer
+      title="Payment History"
+      onUpload={() => router.push("upload/detail?option=rekap-payment")}
+    >
       <DataTable
         columns={generateColumns({
           hasPermission,
           onViewClick: (rowData) => {
-            setInitialData(rowData);
-            setIsOpen(true);
+            setId(rowData.id);
+            setRandId(Math.random().toString(36).substr(2, 9));
           },
         })}
         data={paymentHistorys.data}
@@ -59,7 +88,9 @@ export default function PaymentHistoryView({
                   <td className="p-2 font-semibold">Date</td>
                   <td className="p-2">
                     {initialData?.date_v1
-                      ? format(new Date(initialData?.date_v1 || ""), "PPP")
+                      ? format(new Date(initialData?.date_v1 || ""), "PPP", {
+                          locale: ID,
+                        })
                       : "-"}
                   </td>
                 </tr>
@@ -67,7 +98,9 @@ export default function PaymentHistoryView({
                   <td className="p-2 font-semibold">Date 2</td>
                   <td className="p-2">
                     {initialData?.date_v2
-                      ? format(new Date(initialData?.date_v2 || ""), "PPP")
+                      ? format(new Date(initialData?.date_v2 || ""), "PPP", {
+                          locale: ID,
+                        })
                       : "-"}
                   </td>
                 </tr>
@@ -105,7 +138,9 @@ export default function PaymentHistoryView({
                   <td className="p-2 font-semibold">Created At</td>
                   <td className="p-2">
                     {initialData?.created_at
-                      ? format(new Date(initialData?.created_at || ""), "PPP")
+                      ? format(new Date(initialData?.created_at || ""), "PPP", {
+                          locale: ID,
+                        })
                       : "-"}
                   </td>
                 </tr>
@@ -113,7 +148,9 @@ export default function PaymentHistoryView({
                   <td className="p-2 font-semibold">Updated At</td>
                   <td className="p-2">
                     {initialData?.updated_at
-                      ? format(new Date(initialData?.updated_at || ""), "PPP")
+                      ? format(new Date(initialData?.updated_at || ""), "PPP", {
+                          locale: ID,
+                        })
                       : "-"}
                   </td>
                 </tr>

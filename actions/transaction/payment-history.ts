@@ -2,8 +2,22 @@
 
 import { auth } from "@/lib/auth";
 import { UploadType } from "@/lib/zod";
-import { uploadPaymentHistory } from "@/services/transaction/payment-history";
+import {
+  getPaymentHistory,
+  uploadPaymentHistory,
+} from "@/services/transaction/payment-history";
 import { revalidateLocalizedPath } from "@/utils/revalidate";
+
+export const getPaymentHistoryAction = async (id: number) => {
+  const session = await auth();
+
+  const data = await getPaymentHistory({
+    token: session?.user.token as string,
+    id,
+  });
+
+  return data;
+};
 
 export const uploadPaymentHistoryAction = async (data: UploadType) => {
   const session = await auth();
@@ -13,9 +27,9 @@ export const uploadPaymentHistoryAction = async (data: UploadType) => {
     body: data,
   });
 
-  if (res.success === false) {
+  if (res.status === false) {
     return {
-      success: false,
+      status: res.status,
       message: res?.message,
     };
   }
@@ -23,7 +37,7 @@ export const uploadPaymentHistoryAction = async (data: UploadType) => {
   revalidateLocalizedPath("/transactional/payment-history");
 
   return {
-    success: true,
+    status: res.status,
     message: "Agent Call Activity Added",
   };
 };

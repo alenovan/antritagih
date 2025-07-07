@@ -17,7 +17,7 @@ export type ApiParameter = {
 
 type GeneralAPIResponse = {
   message: string;
-  success: boolean;
+  status: boolean;
 };
 
 type ApiResponse<T> = T extends void
@@ -121,7 +121,7 @@ async function fetchAPI<T>({
 
     if (!response.ok) {
       return {
-        success: !response.ok,
+        status: data?.status,
         message: data?.message,
       } as ApiResponse<T>;
     }
@@ -130,7 +130,7 @@ async function fetchAPI<T>({
   } catch (error) {
     console.error("Error making authenticated request:", error);
     return {
-      success: false,
+      status: false,
       message: "Error from API",
     } as ApiResponse<T>;
   }

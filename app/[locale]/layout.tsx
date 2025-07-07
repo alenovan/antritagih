@@ -5,17 +5,17 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import MountedProvider from "@/providers/mounted.provider";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
-const inter = Inter({ subsets: ["latin"] });
-// language
 import { getLangDir } from "rtl-detect";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import DirectionProvider from "@/providers/direction-provider";
 import AuthProvider from "@/providers/auth.provider";
 
+const inter = Inter({ subsets: ["latin"] });
+
 export const metadata: Metadata = {
-  title: "AntriTagih",
-  description: "created by AntriTagih",
+  title: "Hi-Tech Smart Solution",
+  description: "created by Hi-Tech Smart Solution",
 };
 
 export default async function RootLayout({
@@ -27,6 +27,7 @@ export default async function RootLayout({
 }>) {
   const messages = await getMessages();
   const direction = getLangDir(locale);
+
   return (
     <html lang={locale} dir={direction}>
       <body className={`${inter.className} dashcode-app `}>

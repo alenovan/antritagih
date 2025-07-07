@@ -4,11 +4,11 @@ import { ColumnDef } from "@tanstack/react-table";
 
 export const generateColumns = ({
   hasPermission,
-  onRetryClick,
+  onDeleteClick,
 }: {
   hasPermission: (module: string, action: string) => boolean;
   onEditClick: (data: Upload) => void;
-  onRetryClick: (id: number) => void;
+  onDeleteClick: (id: number) => void;
 }) => {
   const columns: ColumnDef<Upload>[] = [
     {
@@ -17,10 +17,12 @@ export const generateColumns = ({
       cell: ({ row }) => <span>{row.getValue("id")}</span>,
     },
     {
-      accessorKey: "type",
-      header: "Type",
+      accessorKey: "identifier",
+      header: "Identifier",
       cell: ({ row }) => (
-        <span>{(row.getValue("type") as string).replaceAll("_", " ")}</span>
+        <span>
+          {(row.getValue("identifier") as string).replaceAll("_", " ")}
+        </span>
       ),
     },
     {
@@ -36,7 +38,7 @@ export const generateColumns = ({
       cell: (info) => (
         <Badge
           color={
-            info.getValue() === "new"
+            info.getValue() === "success"
               ? "success"
               : info.getValue() === "processing"
               ? "warning"
@@ -56,8 +58,8 @@ export const generateColumns = ({
       meta: { className: "w-[200px] text-center" },
       cell: ({ row }) => (
         <div className="flex gap-2 justify-center">
-          <Button onClick={() => onRetryClick(row.original.id)} size="sm">
-            Retry
+          <Button onClick={() => onDeleteClick(row.original.id)} size="sm">
+            Delete
           </Button>
         </div>
       ),

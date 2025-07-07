@@ -4,11 +4,15 @@ import * as React from "react";
 import { DataTable } from "@/components/ui/data-table/data-table";
 import { generateColumns } from "./column";
 import { useAuthorization } from "@/hooks/use-authorization";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ActionDialog from "@/components/ui/site/action-dialog";
 import PageContainer from "@/components/partials/container/page-container";
 import { format } from "date-fns";
 import { formatIDR } from "@/utils/currency";
+import { id as ID } from "date-fns/locale";
+import useSWR from "swr";
+import { getAgentCallActivityAction } from "@/actions/transaction/agent-call-activity";
+import { useRouter } from "next/navigation";
 
 export default function AgentCallActivityView({
   agentCallActivitys,
@@ -21,15 +25,40 @@ export default function AgentCallActivityView({
   const [initialData, setInitialData] = useState<AgentCallActivity | null>(
     null
   );
+  const [id, setId] = useState<number | null>(null);
+  const [randId, setRandId] = useState<string>("");
+  const router = useRouter();
+
+  const { data } = useSWR<GeneralAPIFetchResponse<AgentCallActivity> | null>(
+    [randId],
+    () => {
+      if (id) return getAgentCallActivityAction(id);
+      return null;
+    },
+    {
+      revalidateOnMount: false,
+      revalidateOnFocus: false,
+    }
+  );
+
+  useEffect(() => {
+    if (data) {
+      setInitialData(data.data);
+      setIsOpen(true);
+    }
+  }, [data]);
 
   return (
-    <PageContainer title="Agent Call Activity">
+    <PageContainer
+      title="Agent Call Activity"
+      onUpload={() => router.push("upload/detail?option=agent-call-activity")}
+    >
       <DataTable
         columns={generateColumns({
           hasPermission,
           onViewClick: (rowData) => {
-            setInitialData(rowData);
-            setIsOpen(true);
+            setId(rowData.id);
+            setRandId(Math.random().toString(36).substr(2, 9));
           },
         })}
         data={agentCallActivitys.data}
@@ -87,7 +116,9 @@ export default function AgentCallActivityView({
                   <td className="p-2 font-semibold">Action Date</td>
                   <td className="p-2">
                     {initialData?.tgl_aksi
-                      ? format(new Date(initialData?.tgl_aksi || ""), "PPP")
+                      ? format(new Date(initialData?.tgl_aksi || ""), "PPP", {
+                          locale: ID,
+                        })
                       : "-"}
                   </td>
                 </tr>

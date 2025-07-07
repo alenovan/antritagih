@@ -69,7 +69,7 @@ export default function PriceChannelForm({
         ? await createPriceChannelAction(data)
         : await updatePriceChannelAction(initialData?.id as number, data);
 
-    if (res.success) {
+    if (res.status) {
       toast.success(res.message);
       onClose();
     } else {

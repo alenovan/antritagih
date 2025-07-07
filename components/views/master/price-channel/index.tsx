@@ -46,7 +46,7 @@ export default function PriceChannelView({
             if (confirmed) {
               const res = await deletePriceChannelAction(id);
 
-              if (!res.success) return toast.error(res.message);
+              if (!res.status) return toast.error(res.message);
 
               return toast.success(res.message);
             }
