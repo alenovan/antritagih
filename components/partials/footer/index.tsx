@@ -42,7 +42,7 @@ const DashCodeFooter = async () => {
                         </span>
                     </div>
                 </Link>
-                <Link
+                {/* <Link
                     href="profile"
                     className="relative bg-card bg-no-repeat backdrop-filter backdrop-blur-[40px] rounded-full footer-bg dark:bg-default-300 h-[65px] w-[65px] z-[-1] -mt-[40px] flex justify-center items-center"
                 >
@@ -57,7 +57,7 @@ const DashCodeFooter = async () => {
 
                         />
                     </div>
-                </Link>
+                </Link> */}
                 <Link href="notifications">
                     <div>
                         <span
