@@ -33,7 +33,7 @@ const IconNav = ({ menuList }: IconNavProps) => {
     >
       <div className="text-center py-5">
         <Link href="/dashboard">
-          <DashCodeLogo className="  text-default-900 h-8 w-8 [&>path:nth-child(3)]:text-background [&>path:nth-child(2)]:text-background mx-auto" />
+          <DashCodeLogo className="text-default-900 h-8 w-8 [&>path:nth-child(3)]:text-background [&>path:nth-child(2)]:text-background mx-auto" />
         </Link>
       </div>
       <ScrollArea className="[&>div>div[style]]:block! h-full">

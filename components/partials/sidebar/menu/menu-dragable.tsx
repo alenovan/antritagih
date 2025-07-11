@@ -107,7 +107,7 @@ export function MenuDragAble() {
 
   return (
     <>
-      <div className="flex items-center justify-between  px-4 py-4">
+      <div className="flex items-center justify-between px-4 py-4">
         <Logo />
         <SidebarHoverToggle />
       </div>

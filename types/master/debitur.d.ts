@@ -46,6 +46,7 @@ type DebiturAdditional = {
   id: number;
   created_at: Date;
   updated_at: Date;
+  debitur_id: number;
   data: string;
   source: string;
   identifier: string;

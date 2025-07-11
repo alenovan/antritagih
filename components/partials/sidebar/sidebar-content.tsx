@@ -46,7 +46,7 @@ const SidebarContent = ({ children }: { children: React.ReactNode }) => {
       <div className=" relative  flex flex-col h-full  ">
         {config.sidebarBgImage !== undefined && (
           <div
-            className=" absolute left-0 top-0   z-[-1] w-full h-full bg-cover bg-center opacity-[0.07]"
+            className="absolute left-0 top-0 z-[-1] w-full h-full bg-cover bg-center opacity-[0.07]"
             style={{ backgroundImage: `url(${config.sidebarBgImage})` }}
           ></div>
         )}

@@ -59,6 +59,20 @@ export default function UploadForm({
     setBaseFolder(value);
   };
 
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (isPending) {
+        event.returnValue =
+          "You have an ongoing upload. Are you sure you want to leave?";
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [isPending]);
+
   // Upload a single file and return its filename on success
   const uploadFile = (file: File, index: number): Promise<string> => {
     return new Promise((resolve, reject) => {

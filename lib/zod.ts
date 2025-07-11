@@ -60,6 +60,7 @@ export const debiturSchema = z.object({
 });
 
 export const debiturAdditionalSchema = z.object({
+  debitur_id: z.number().min(1, "Debitur is required"),
   data: z.string().trim().min(1, "Data is required"),
   source: z.string().trim().min(1, "Source is required"),
   identifier: z.string().trim().min(1, "Identifier is required"),

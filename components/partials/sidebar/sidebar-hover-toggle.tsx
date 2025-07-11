@@ -18,7 +18,7 @@ const SidebarHoverToggle = () => {
     <div
       onClick={() => setConfig({ ...config, collapsed: !config.collapsed })}
       className={cn(
-        "h-4 w-4 border-[1.5px] border-default-900 dark:border-default-700 rounded-full transition-all duration-150",
+        "h-4 w-4 border-[1.5px] border-default-900 dark:border-default-700 rounded-full transition-all duration-150 flex-none",
         {
           [`ring-0 ring-default-900 ring-offset-4 ring-offset-secondary ring-inset bg-default-900 dark:bg-${config.sidebarColor}`]:
             !config.collapsed,

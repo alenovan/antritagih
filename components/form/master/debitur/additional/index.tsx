@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
+import { useSearchParams } from "next/navigation";
 
 interface DebiturAdditionalFormProps {
   onClose: () => void;
@@ -30,11 +31,14 @@ export default function DebiturAdditionalForm({
   initialData,
   mode,
 }: DebiturAdditionalFormProps) {
+  const params = useSearchParams();
+
   const [isPending, setIsPending] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof debiturAdditionalSchema>>({
     resolver: zodResolver(debiturAdditionalSchema),
     defaultValues: {
+      debitur_id: initialData?.debitur_id || Number(params?.get("debitur_id")),
       data: initialData?.data || "",
       source: initialData?.source || "",
       identifier: initialData?.identifier || "",

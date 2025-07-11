@@ -42,6 +42,8 @@ export const generateColumns = ({
               ? "success"
               : info.getValue() === "processing"
               ? "warning"
+              : info.getValue() === "new" 
+              ? "info"
               : "destructive"
           }
           className="capitalize"

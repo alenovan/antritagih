@@ -1,5 +1,3 @@
-import { logoutAction } from "@/actions/auth";
-
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 export type ApiParameter = {
@@ -112,6 +110,7 @@ async function fetchAPI<T>({
 
   try {
     const response = await fetch(url, requestOptions);
+    console.log("cek", response);
 
     if (response.status === 500) {
       throw new Error("Internal Server Error");
