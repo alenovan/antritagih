@@ -203,7 +203,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   cookies: {
     sessionToken: {
       name: `${
-        process.env.NODE_ENV === "production" ? "__Secure-Hi-Tech Smart Solution-" : ""
+        process.env.NODE_ENV === "production" ? "__Secure-AntriaTagih-" : ""
       }authjs.session-token`,
       options: {
         secure: process.env.NODE_ENV === "production" ? true : false,
